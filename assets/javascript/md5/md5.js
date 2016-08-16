@@ -224,5 +224,8 @@ $.ajax({
   .done(function(response) {
     console.log(response.data.results[0].name);
     $('#here').html(response.data.results[0].name);
+    var thumbnail = response.data.results[0].thumbnail.path
+    var path = response.data.results[0].thumbnail.extension
+    $('#here').append("<img src=" + thumbnail + "." + path + "></img>");
   });
   
