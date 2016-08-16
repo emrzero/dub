@@ -199,7 +199,18 @@ var MD5 = function (string) {
     return temp.toLowerCase();
 }
 
+var characters = [
+  ['thor', 'Team Affiliation: Avengers', 'Origin: Asgard', 'Archnemesis: Loki', 'Power/Ability: Mjolnir', 'Alias: Thor Odinson'],
+  ['iron man', 'Team Affiliation: Avengers', 'Origin: Long Island', 'Archnemesis: Obadiah Stane', 'Power/Ability: Powered Armor Suit', 'Alias: Tony Stark'],
+  ['captain america', 'Team Affiliation: Avengers', 'Origin: Manhattan, New York', 'Archnemesis: Baron Zemo', 'Power/Ability: Vibranium-steel alloy shield', 'Alias: Steve Rodgers'],
+  ['wolverine', 'Team Affiliation: X-Men', 'Origin: Alberta, Canada', 'Archnemesis: Sabretooth', 'Power/Ability: Regenerative healing factor', 'Alias: James Howlett'],
+  ['spider-man', 'Team Affiliation: Avengers', 'Origin: Queens, New York', 'Archnemesis: Doctor Octopus', 'Power/Ability: Spider-sense', 'Alias: Peter Parker'],
+];
+var pos = 0;
+var hint = 1;
 
+//var computerGuess = characters[Math.floor(Math.random()*characters.length)][0];
+//alert(computerGuess);
 
 var unix = Math.round(+new Date()/1000);
 console.log(unix);
@@ -207,25 +218,43 @@ console.log(unix);
 var publicAPIkey = "5664cba2d0357c1f7e1a63f962247a76";
 var privateAPIkey = "0624d293385e3f5fdfbef056afdcb2eced4303f9";
 
-
 var h = MD5(unix + privateAPIkey + publicAPIkey);
 
 var apiURL = 'http://gateway.marvel.com:80/v1/public/characters';
 var apiKey = '5664cba2d0357c1f7e1a63f962247a76';
-var callbackParam = "thor";
+var callbackParam = characters[pos][0];
 var timeStamp = Date.now();
 
 var queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h + "&name=" + callbackParam;
 console.log(queryURL);
+
 $.ajax({
   url: queryURL,
   method: 'GET'
 })
   .done(function(response) {
     console.log(response.data.results[0].name);
-    $('#here').html(response.data.results[0].name);
+    $('#here').html(response.data.results[0].comics.items[0].resourceURI);
+
     var thumbnail = response.data.results[0].thumbnail.path
     var path = response.data.results[0].thumbnail.extension
-    $('#here').append("<img src=" + thumbnail + "." + path + "></img>");
+    //$('#here').append("<img src=" + thumbnail + "." + path + "></img>");
+    $('#here').append("Question " + (pos+1) + " of " + characters.length);
+
+    answer = characters[pos][0];
+    $('#here').append("Character: " + answer);
+
+    $('#hint').on('click', function(){
+      if (hint >= 6){
+        alert("You cannot take anymore hints! You must guess a character.")
+        return false;
+      }
+      else {
+        var hintguess = characters[pos][hint];
+        alert(hintguess);
+        hint++;
+      }
+
+    });
   });
   
