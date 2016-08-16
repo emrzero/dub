@@ -211,9 +211,18 @@ var privateAPIkey = "0624d293385e3f5fdfbef056afdcb2eced4303f9";
 var h = MD5(unix + privateAPIkey + publicAPIkey);
 
 var apiURL = 'http://gateway.marvel.com:80/v1/public/characters';
-    var apiKey = '5664cba2d0357c1f7e1a63f962247a76';
-    var callbackParam = "thor";
-    var timeStamp = Date.now();
+var apiKey = '5664cba2d0357c1f7e1a63f962247a76';
+var callbackParam = "thor";
+var timeStamp = Date.now();
 
-var queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h;
+var queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h + "&name=" + callbackParam;
 console.log(queryURL);
+$.ajax({
+  url: queryURL,
+  method: 'GET'
+})
+  .done(function(response) {
+    console.log(response.data.results[0].name);
+    $('#here').html(response.data.results[0].name);
+  });
+  
