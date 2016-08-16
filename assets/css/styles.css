@@ -1,0 +1,14 @@
+.sidebar {
+	background color: blue;
+	padding: 30px;
+	width: 100%;
+	max-width: 270px;
+	float: right;
+	border: 5px solid #ddd;
+	margin-bottom: 20px;
+}
+th{
+margin:2px 5px;
+background-color: yellow;
+
+}
