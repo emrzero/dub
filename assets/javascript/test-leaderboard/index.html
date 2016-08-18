@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Leaderboard Beta</title>
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+	<!-- Browser tab icon
+	<link rel="icon" type="image/ico" href="assets/images/favicon-train.ico"> -->
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- Link to Moment.js should go here -->
+	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+	<!-- Link to Firebase -->
+	<!-- <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script> -->
+
+
+</head>
+
+<body>
+	<!-- Pseudo 01f: Check all links - bootstrap - Jumbotron -->
+	<div class="container">
+
+		<!-- Jumbotron -->
+		<div class="jumbotron" style="background-color: black; color: white">
+
+		<h1 class="text-center">Leaderboard Beta</h1>
+		<h3 class="text-center">User Input HCS Scenario</h3>
+
+		<div id="jq-check" class="panel-body">Container for JQ</div>
+		<div id="js-check" class="panel-body">Container for JS</div>
+		<div id="firebase-check" class="panel-body">Container for Firebase</div>
+
+		<!-- <button id="submit" class="btn btn-primary">Set Firebase Object</button> -->
+
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+		
+			<!-- Current Train -->
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover" id='leaderboardTable'>
+							<thead>
+								<tr>
+									<th>Player Name</th>
+									<th>Score</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- Add Player Result  -->
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><strong>Add Player Result</strong></h3>
+					</div>
+					<div class="panel-body">
+		
+
+					<!-- Entry Form -->
+					<form>
+
+						<div class="form-group">
+							<label for="">Player Name</label>
+							<input type="text" class="form-control" id="playerNameInput">
+						</div>
+
+						<div class="form-group">
+							<label for="">Score</label>
+							<input type="text" class="form-control" id="scoreInput">
+						</div>
+						
+						<button type="submit" class="btn btn-primary" id="submit">Submit</button>
+
+					</form>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- Latest compiled and minified CSS & JS -->
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+	<!-- Link to javascript file -->
+	<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+	<script type="text/javascript">
+
+	// Pseudo 01: check all links
+	// Pseudo 01a: check all links - jq - to be comment out
+	$("#jq-check").html("JQ CHECK");
+	// Pseudo 01b: check all links - js - to be comment out
+	document.getElementById("js-check").innerHTML = "JS CHECK";
+
+
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyBmrX91JJuF622wDzsKchjw6ObaBdC0nLs",
+		authDomain: "dub-marvel.firebaseapp.com",
+		databaseURL: "https://dub-marvel.firebaseio.com",
+		storageBucket: "dub-marvel.appspot.com",
+	};
+
+	firebase.initializeApp(config);
+
+	var database = firebase.database();
+
+	// pseudo 01d: check all links - firebase
+	$("#submit").on("click", function(){
+
+		// this just test that link to firebase works
+		// database.ref().set({
+		// 	firebasechk: "FIREBASE CHECK"
+		// });
+
+		// Grabs user input
+		var playerName = $("#playerNameInput").val().trim();
+		var score = $("#scoreInput").val().trim();
+
+		// Creates local "temporary" object for holding train data
+		var newPlayer = {
+			playerName:  playerName,
+			score: score
+		};
+
+		// Uploads newPlayer result data to the database
+		database.ref().push(newPlayer);
+
+		// Logs everything to console
+		console.log(newPlayer.playerName);
+		console.log(newPlayer.score);
+
+		// Alert
+		alert("New player result successfully added");
+
+		// Clears all of the text-boxes
+		// $("#playerNameInput").val("");
+		// $("#scoreInput").val("");
+
+		// Prevents moving to new page
+
+		return false;
+	});
+
+	// Pseudo 01 : check all links - firebase get data out
+	// database.ref().on("value", function(snapshot) {
+
+	// var firebasechk = snapshot.val().firebasechk;
+
+	// $('#firebase-check').html(firebasechk);
+
+	// });
+
+
+	// Pseudo 02 : test pulling player result
+	database.ref().on("child_added", function(childSnapshot, prevChildKey){
+
+	console.log(childSnapshot.val());
+
+	// Store everything into a variable.
+	var playerName = childSnapshot.val().playerName;
+	var score = childSnapshot.val().score;
+
+	// Train Info
+	console.log(playerName);
+	console.log(score);
+
+
+	$("#leaderboardTable > tbody").append(
+	"<tr><td>" + playerName + 
+	"</td><td>" + score);
+
+
+	});
+
+
+
+
+	</script>
+</body>
+</html>
+
+
