@@ -78,7 +78,7 @@
 
 						<div class="form-group">
 							<label for="">Score</label>
-							<input type="text" class="form-control" id="scoreInput">
+							<input type="number" class="form-control" id="scoreInput">
 						</div>
 						
 						<button type="submit" class="btn btn-primary" id="submit">Submit</button>
@@ -131,65 +131,66 @@
 
 		// Grabs user input
 		var playerName = $("#playerNameInput").val().trim();
-		var score = $("#scoreInput").val().trim();
+		var score = $("#scoreInput").val();
 
 		// Creates local "temporary" object for holding train data
+		// Converts form input score from string to integer
 		var newPlayer = {
 			playerName:  playerName,
-			score: score
+			score: parseInt(score)
 		};
 
 		// Uploads newPlayer result data to the database
 		database.ref().push(newPlayer);
 
-		// Logs everything to console
-		console.log(newPlayer.playerName);
-		console.log(newPlayer.score);
+			// Logs everything to console
+			console.log(newPlayer.playerName);
+			console.log(newPlayer.score);
 
 		// Alert
-		alert("New player result successfully added");
+		// alert("New player result successfully added");
 
 		// Clears all of the text-boxes
 		// $("#playerNameInput").val("");
 		// $("#scoreInput").val("");
 
 		// Prevents moving to new page
-
 		return false;
+
 	});
 
 	// Pseudo 01 : check all links - firebase get data out
 	// database.ref().on("value", function(snapshot) {
-
 	// var firebasechk = snapshot.val().firebasechk;
-
 	// $('#firebase-check').html(firebasechk);
-
 	// });
 
 
 	// Pseudo 02 : test pulling player result
-	database.ref().on("child_added", function(childSnapshot, prevChildKey){
+	// database.ref().on("child_added", function(childSnapshot, prevChildKey){
+	// database.ref().orderByChild('score').limitToFirst(5).on("child_added", function(childSnapshot, prevChildKey){
+	database.ref().orderByChild('score').on("child_added", function(childSnapshot){
 
-	console.log(childSnapshot.val());
+		// Snapshot info
+		console.log(childSnapshot.val());
 
 	// Store everything into a variable.
 	var playerName = childSnapshot.val().playerName;
 	var score = childSnapshot.val().score;
 
-	// Train Info
-	console.log(playerName);
-	console.log(score);
+		// Player Info
+		console.log(playerName);
+		console.log(score);
 
-
+	// adding new table container and displaying firebase sorted data
 	$("#leaderboardTable > tbody").append(
 	"<tr><td>" + playerName + 
-	"</td><td>" + score);
+	"</td><td>" + score +
+	"</td></tr>"
+	);
 
 
 	});
-
-
 
 
 	</script>
