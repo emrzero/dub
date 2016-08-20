@@ -199,62 +199,158 @@ var MD5 = function (string) {
     return temp.toLowerCase();
 }
 
-var characters = [
-  ['thor', 'Team Affiliation: Avengers', 'Origin: Asgard', 'Archnemesis: Loki', 'Power/Ability: Mjolnir', 'Alias: Thor Odinson'],
-  ['iron man', 'Team Affiliation: Avengers', 'Origin: Long Island', 'Archnemesis: Obadiah Stane', 'Power/Ability: Powered Armor Suit', 'Alias: Tony Stark'],
-  ['captain america', 'Team Affiliation: Avengers', 'Origin: Manhattan, New York', 'Archnemesis: Baron Zemo', 'Power/Ability: Vibranium-steel alloy shield', 'Alias: Steve Rodgers'],
-  ['wolverine', 'Team Affiliation: X-Men', 'Origin: Alberta, Canada', 'Archnemesis: Sabretooth', 'Power/Ability: Regenerative healing factor', 'Alias: James Howlett'],
-  ['spider-man', 'Team Affiliation: Avengers', 'Origin: Queens, New York', 'Archnemesis: Doctor Octopus', 'Power/Ability: Spider-sense', 'Alias: Peter Parker'],
-];
-var pos = 0;
-var hint = 1;
+  /*var characters = [
+    ['thor', 'Team Affiliation: Avengers', 'Origin: Asgard', 'Archnemesis: Loki', 'Power/Ability: Mjolnir', 'Alias: Thor Odinson'],
+    ['iron man', 'Team Affiliation: Avengers', 'Origin: Long Island', 'Archnemesis: Obadiah Stane', 'Power/Ability: Powered Armor Suit', 'Alias: Tony Stark'],
+    ['captain america', 'Team Affiliation: Avengers', 'Origin: Manhattan, New York', 'Archnemesis: Baron Zemo', 'Power/Ability: Vibranium-steel alloy shield', 'Alias: Steve Rodgers'],
+    ['black widow', 'Team Affiliation: Avengers', 'Origin: Stalingrad, Russia', 'Archnemesis: Black Lotus', 'Power/Ability: Widow\'s Bite', 'Alias: Natasha Romanova'],
+    ['spider-man', 'Team Affiliation: Avengers', 'Origin: Queens, New York', 'Archnemesis: Doctor Octopus', 'Power/Ability: Spider-sense', 'Alias: Peter Parker'],
+  ];*/
 
-//var computerGuess = characters[Math.floor(Math.random()*characters.length)][0];
-//alert(computerGuess);
+  var characters = {
+    thor: {
+      Team: 'Avengers',
+      Origin: 'Asgard',
+      Archnemesis: 'Loki',
+      Power: 'Mjolnir',
+      Alias: 'Thor Odinson'
+    },
+    ironman: {
+      Team: 'Avengers',
+      Origin: 'Long Island',
+      Archnemesis: 'Obadiah Stone',
+      Power: 'Powered Armor Suit',
+      Alias: 'Tony Stark'
+    },
+    captainamerica: {
+      Team: 'Avengers',
+      Origin: 'Manhattan',
+      Archnemesis: 'Baron Zemo',
+      Power: 'Vibranium-Steel Alloy Shield',
+      Alias: 'Steve Rodgers'
+    },
+    blackwidow: {
+      Team: 'Avengers',
+      Origin: 'Stalingrad',
+      Archnemesis: 'Black Lotus',
+      Power: 'Widow\'s Bite',
+      Alias: 'Natasha Romanova'
+    },
+    spiderman: {
+      Team: 'Avengers',
+      Origin: 'Queens',
+      Archnemesis: 'Doctor Octopus',
+      Power: 'Spider-Sense',
+      Alias: 'Peter Parker'
+    },
+  };
 
-var unix = Math.round(+new Date()/1000);
-console.log(unix);
+  var hintCounter = 1;
+  var playerScore = 100;
+  var questionScore = 5;
+  //var thor = false;
+  //var ironman = false;
+  //var captainamerica = false;
+  //var wolverine = false;
+  //var spiderman = false;
+  var charactersGame = ['thor', 'ironman', 'captainamerica', 'blackwidow', 'spiderman'];
+  var charactersChosen = ["thor", "iron man", "captain america", "black widow", "spiderman"];
 
-var publicAPIkey = "5664cba2d0357c1f7e1a63f962247a76";
-var privateAPIkey = "0624d293385e3f5fdfbef056afdcb2eced4303f9";
+  var number = Math.floor(Math.random()*charactersGame.length);
+  var computerGuess = charactersGame[number];
+  console.log(computerGuess);
+  //console.log(characters.computerGuess.Team);
 
-var h = MD5(unix + privateAPIkey + publicAPIkey);
+  var unix = Math.round(+new Date()/1000);
+  console.log(unix);
 
-var apiURL = 'http://gateway.marvel.com:80/v1/public/characters';
-var apiKey = '5664cba2d0357c1f7e1a63f962247a76';
-var callbackParam = characters[pos][0];
-var timeStamp = Date.now();
+  var publicAPIkey = "5664cba2d0357c1f7e1a63f962247a76";
+  var privateAPIkey = "0624d293385e3f5fdfbef056afdcb2eced4303f9";
 
-var queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h + "&name=" + callbackParam;
-console.log(queryURL);
+  var h = MD5(unix + privateAPIkey + publicAPIkey);
 
-$.ajax({
-  url: queryURL,
-  method: 'GET'
-})
+  var apiURL = 'http://gateway.marvel.com:80/v1/public/characters';
+  var apiKey = '5664cba2d0357c1f7e1a63f962247a76';
+  var callbackParam = charactersChosen[number];
+  var timeStamp = Date.now();
+
+  var queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h + "&name=" + callbackParam;
+  console.log(queryURL);
+
+  $.ajax({
+    url: queryURL,
+    method: 'GET'
+  })
   .done(function(response) {
-    console.log(response.data.results[0].name);
-    $('#here').html(response.data.results[0].comics.items[0].resourceURI);
+
+    //console.log(response.data.results[0].name);
+    console.log(response);
 
     var thumbnail = response.data.results[0].thumbnail.path
     var path = response.data.results[0].thumbnail.extension
-    //$('#here').append("<img src=" + thumbnail + "." + path + "></img>");
-    $('#here').append("Question " + (pos+1) + " of " + characters.length);
+    console.log(thumbnail + "." + path)
+    //$('#here').append("<img src=" + thumbnail + "." + path + " height=" + "200" +  " width=" + "200" + " id=" + "character" + ">");
+    //$('#here').append("Question " + (pos+1) + " of " + characters.length);
 
-    answer = characters[pos][0];
-    $('#here').append("Character: " + answer);
+    answer = characters[number][0];
+    $('#here').html("Guess the character that has meets the following criteria: ");
+    $('#here').append("<div>" + characters[number][hintCounter] + "</div>");
+    $('#playerScore').append("Current Score: " + playerScore);
+    $('#questionScore').append("This question is worth: " + questionScore);
 
     $('#hint').on('click', function(){
-      if (hint >= 6){
+      hint();
+    });
+
+    $('.character').on('click', function() {
+      var userGuess = $(this).attr('id');
+      if (userGuess == callbackParam) {
+        alert("Correct!")
+        playerScore += questionScore;
+        $('#playerScore').html("Current Score: " + playerScore);
+        if (characters.length = 0) {
+          alert("No more characters");
+          return false;
+        }
+        else {
+          charactersChosen.splice(computerGuess, 1);
+          charactersGame.splice(number, 1);
+        }
+        reset();
+        }
+      else {
+        alert("Wrong!");
+        hint();
+      }
+    });
+
+    function hint() {
+      if (hintCounter >= 5){
         alert("You cannot take anymore hints! You must guess a character.")
         return false;
       }
       else {
-        var hintguess = characters[pos][hint];
-        alert(hintguess);
-        hint++;
+        hintCounter++;
+        var hintguess = characters[computerGuess][hintCounter];
+        $('#here').append("<div>" + hintguess + "</div>");
+        questionScore--;
+        $('#questionScore').html("This question is worth: " + questionScore);
       }
+    }
 
-    });
+    function reset() {
+      hintCounter = 1;
+      questionScore = 5;
+      computerGuess = Math.floor(Math.random()*charactersChosen.length);
+      var callbackParam = characters[computerGuess][0];
+      queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h + "&name=" + callbackParam;
+      $.ajax({
+        url: queryURL,
+        method: 'GET'
+      })
+      .done(function(response) {
+        $('#here').html("Guess the character that has meets the following criteria: ");
+        $('#here').append("<div>" + characters[computerGuess][hintCounter] + "</div>");
+      });
+    }
   });
-  
