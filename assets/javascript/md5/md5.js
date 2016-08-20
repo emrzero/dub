@@ -245,9 +245,10 @@ var MD5 = function (string) {
     },
   };
 
-  var hintCounter = 1;
+  var hintCounter = 0;
   var playerScore = 100;
   var questionScore = 5;
+  var charHints = [];
   //var thor = false;
   //var ironman = false;
   //var captainamerica = false;
@@ -259,6 +260,10 @@ var MD5 = function (string) {
   var number = Math.floor(Math.random()*charactersGame.length);
   var computerGuess = charactersGame[number];
   console.log(computerGuess);
+
+  for (key in characters[computerGuess]){
+    charHints.push(key + " : "+ characters[computerGuess][key]);
+  }
   //console.log(characters.computerGuess.Team);
 
   var unix = Math.round(+new Date()/1000);
@@ -292,9 +297,10 @@ var MD5 = function (string) {
     //$('#here').append("<img src=" + thumbnail + "." + path + " height=" + "200" +  " width=" + "200" + " id=" + "character" + ">");
     //$('#here').append("Question " + (pos+1) + " of " + characters.length);
 
-    answer = characters[number][0];
+    answer = characters[computerGuess];
     $('#here').html("Guess the character that has meets the following criteria: ");
-    $('#here').append("<div>" + characters[number][hintCounter] + "</div>");
+    $('#here').append("<div>" + charHints[hintCounter] + "</div>");
+    hintCounter++;
     $('#playerScore').append("Current Score: " + playerScore);
     $('#questionScore').append("This question is worth: " + questionScore);
 
@@ -325,13 +331,13 @@ var MD5 = function (string) {
     });
 
     function hint() {
-      if (hintCounter >= 5){
+      if (hintCounter > 4){
         alert("You cannot take anymore hints! You must guess a character.")
         return false;
       }
       else {
         hintCounter++;
-        var hintguess = characters[computerGuess][hintCounter];
+        var hintguess = charHints[hintCounter];
         $('#here').append("<div>" + hintguess + "</div>");
         questionScore--;
         $('#questionScore').html("This question is worth: " + questionScore);
