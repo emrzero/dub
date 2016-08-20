@@ -3,6 +3,7 @@
 }
 
 .btn, .btn-large {
+    width: 100%;
     text-decoration: none;
     color: #fff;
     background-color: #FB000F;
