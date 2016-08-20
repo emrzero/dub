@@ -7,14 +7,14 @@
 	<!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
 	<!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
 	<!-- Browser tab icon
-	<link rel="icon" type="image/ico" href="assets/images/favicon-train.ico"> -->
+	<link rel="icon" type="image/ico" href="assets/images/favicon-marvel.ico"> -->
 	
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<!-- Link to Moment.js should go here -->
 	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 	<!-- Link to Firebase -->
-	<!-- <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script> -->
+	<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
 
 
 </head>
@@ -26,12 +26,12 @@
 		<!-- Jumbotron -->
 		<div class="jumbotron" style="background-color: black; color: white">
 
-		<h1 class="text-center">Leaderboard Beta</h1>
-		<h3 class="text-center">User Input HCS Scenario</h3>
+		<h3 class="text-center">Firebase Leaderboard Beta</h3>
+		<h3 class="text-center">User Input Hard Code Skeleton Scenarios</h3>
 
-		<div id="jq-check" class="panel-body">Container for JQ</div>
-		<div id="js-check" class="panel-body">Container for JS</div>
-		<div id="firebase-check" class="panel-body">Container for Firebase</div>
+		<!-- <div id="jq-check" class="panel-body">Container for JQ</div> -->
+		<!-- <div id="js-check" class="panel-body">Container for JS</div> -->
+		<!-- <div id="firebase-check" class="panel-body">Container for Firebase</div> -->
 
 		<!-- <button id="submit" class="btn btn-primary">Set Firebase Object</button> -->
 
@@ -40,7 +40,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 		
-			<!-- Current Train -->
+			<!-- Current Leaderboard -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 
@@ -72,129 +72,228 @@
 					<form>
 
 						<div class="form-group">
-							<label for="">Player Name</label>
-							<input type="text" class="form-control" id="playerNameInput">
+							<label for="">Player 1 Name</label>
+							<input type="text" class="form-control" id="playerNameInput1" value="Kent">
 						</div>
 
 						<div class="form-group">
-							<label for="">Score</label>
-							<input type="number" class="form-control" id="scoreInput">
+							<label for="">Score 1</label>
+							<input type="number" class="form-control" id="scoreInput1" value="10">
 						</div>
-						
-						<button type="submit" class="btn btn-primary" id="submit">Submit</button>
+
+						<div class="form-group">
+							<label for="">Player 2 Name</label>
+							<input type="text" class="form-control" id="playerNameInput2" value="Omar">
+						</div>
+
+						<div class="form-group">
+							<label for="">Score 2</label>
+							<input type="number" class="form-control" id="scoreInput2" value="20">
+						</div>
+
+						<button type="submit" class="btn btn-primary" id="set1a">Set1a</button>
+
+						<button type="submit" class="btn btn-primary" id="set1b">Set1b</button>
+
+						<button type="submit" class="btn btn-primary" id="push1a">Push1a</button>
+
+						<button type="submit" class="btn btn-primary" id="update1a">Update1a</button>
+
+						<button type="submit" class="btn btn-primary" id="update1b">Update1b</button>
+
+						<button type="submit" class="btn btn-primary" id="sort1a">Sort1a</button>
+
+						<button type="submit" class="btn btn-primary" id="set2">Set2</button>
+
+						<button type="submit" class="btn btn-primary" id="deleteall1">DeleteAll1</button>
 
 					</form>
 
 					</div>
 				</div>
 
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><strong>Codes</strong></h3>
+					</div>
+					<div class="panel-body">
+						<p id="codeDisplay">What da hell</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
-
 
 
 	<!-- Latest compiled and minified CSS & JS -->
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 
 	<!-- Link to javascript file -->
-	<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+	<!-- <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script> -->
 	<script type="text/javascript">
 
 	// Pseudo 01: check all links
 	// Pseudo 01a: check all links - jq - to be comment out
-	$("#jq-check").html("JQ CHECK");
+	// $("#jq-check").html("JQ CHECK");
 	// Pseudo 01b: check all links - js - to be comment out
-	document.getElementById("js-check").innerHTML = "JS CHECK";
+	// document.getElementById("js-check").innerHTML = "JS CHECK";
 
 
 	// Initialize Firebase
 	var config = {
-		apiKey: "AIzaSyBmrX91JJuF622wDzsKchjw6ObaBdC0nLs",
-		authDomain: "dub-marvel.firebaseapp.com",
-		databaseURL: "https://dub-marvel.firebaseio.com",
-		storageBucket: "dub-marvel.appspot.com",
+	    apiKey: "AIzaSyCBIQ0gzyvDA8GRGDYMAQAO6Jq5tovTc6M",
+	    authDomain: "fir-practice-efcb4.firebaseapp.com",
+	    databaseURL: "https://fir-practice-efcb4.firebaseio.com",
+	    storageBucket: "",
 	};
 
 	firebase.initializeApp(config);
 
 	var database = firebase.database();
 
-	// pseudo 01d: check all links - firebase
-	$("#submit").on("click", function(){
+	database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot, prevChildKey){
 
-		// this just test that link to firebase works
-		// database.ref().set({
-		// 	firebasechk: "FIREBASE CHECK"
-		// });
+			// Snapshot info
+			// console.log(childSnapshot.val());
 
-		// Grabs user input
-		var playerName = $("#playerNameInput").val().trim();
-		var score = $("#scoreInput").val();
+		// Store everything into a variable.
+		var playerName = snapshot.val().playerName;
+		var score = snapshot.val().score;
 
-		// Creates local "temporary" object for holding train data
-		// Converts form input score from string to integer
-		var newPlayer = {
-			playerName:  playerName,
-			score: parseInt(score)
-		};
+			// Player Info
+			console.log(playerName);
+			console.log(score);
 
-		// Uploads newPlayer result data to the database
-		database.ref().push(newPlayer);
+		// $('#leaderboardTable > tbody').empty();
 
-			// Logs everything to console
-			console.log(newPlayer.playerName);
-			console.log(newPlayer.score);
+		// adding new table container and displaying firebase sorted data
+		$("#leaderboardTable > tbody").append(
+			"<tr><td>" + playerName + "</td><td>" + score + "</td></tr>"
+		);
 
-		// Alert
-		// alert("New player result successfully added");
+	});
 
-		// Clears all of the text-boxes
-		// $("#playerNameInput").val("");
-		// $("#scoreInput").val("");
+	function set1a(){
 
-		// Prevents moving to new page
+		var playerName = $('#playerNameInput1').val().trim();
+		var score = parseInt($('#scoreInput1').val().trim());
+
+		database.ref().set({
+			players : {
+				playerName : playerName,
+				score : score,
+				scoreInverse : -score
+			}
+		});
+	};
+
+	$('#set1a').on('click', function(){
+		set1a();
+		document.getElementById('codeDisplay').innerHTML = set1a;
+		return false;
+	});
+
+	function set1b(){
+
+		var playerName = $('#playerNameInput1').val().trim();
+		var score = parseInt($('#scoreInput1').val().trim());
+
+		database.ref(playerName).set({
+			// players : {
+				// playerName : playerName,
+			score : score,
+			scoreInverse : -score
+			// }
+		});		
+	};
+
+	$('#set1b').on('click', function(){
+		set1b();
+		document.getElementById('codeDisplay').innerHTML = set1b;
+		return false;
+	});
+
+	function push1a(){
+
+		var playerName = $('#playerNameInput1').val().trim();
+		var score = parseInt($('#scoreInput1').val().trim());
+
+		database.ref().push({
+			playerName : playerName,
+			score : score,
+			scoreInverse : -score
+		});
+	};
+
+	$('#push1a').on('click', function(){
+		push1a();
+		document.getElementById('codeDisplay').innerHTML = push1a;
+		return false;
+	});
+
+	function update1a(){
+
+		var playerName = $('#playerNameInput1').val().trim();
+		var score = parseInt($('#scoreInput1').val().trim());
+
+		database.ref(playerName).update({
+			playerName : playerName,
+			score : score,
+			scoreInverse : -score
+		});
+	};
+
+	$('#update1a').on('click', function(){
+		update1a();
+		document.getElementById('codeDisplay').innerHTML = update1a;
+		return false;
+	});
+
+	function update1b(){
+
+		var playerName = $('#playerNameInput1').val().trim();
+		var score = parseInt($('#scoreInput1').val().trim());
+		var playerKey = database.ref().child().key;
+			console.log(playerKey);
+
+		database.ref(playerKey).update({
+			score : score
+		});
+	};
+
+	$('#update1b').on('click', function(){
+		update1b();
+		document.getElementById('codeDisplay').innerHTML = update1b;
+		return false;
+	});
+
+	$('#deleteall1').on('click', function(){
+		database.ref().remove();
 		return false;
 
 	});
 
-	// Pseudo 01 : check all links - firebase get data out
-	// database.ref().on("value", function(snapshot) {
-	// var firebasechk = snapshot.val().firebasechk;
-	// $('#firebase-check').html(firebasechk);
-	// });
-
-
-	// Pseudo 02 : test pulling player result
-	// database.ref().on("child_added", function(childSnapshot, prevChildKey){
-	// database.ref().orderByChild('score').limitToFirst(5).on("child_added", function(childSnapshot, prevChildKey){
-	database.ref().orderByChild('score').on("child_added", function(childSnapshot){
-
-		// Snapshot info
-		console.log(childSnapshot.val());
-
-	// Store everything into a variable.
-	var playerName = childSnapshot.val().playerName;
-	var score = childSnapshot.val().score;
-
-		// Player Info
-		console.log(playerName);
-		console.log(score);
-
-	// adding new table container and displaying firebase sorted data
-	$("#leaderboardTable > tbody").append(
-	"<tr><td>" + playerName + 
-	"</td><td>" + score +
-	"</td></tr>"
-	);
-
-
+	$('#sort1a').on('click', function(){
+		update1a();
+		document.getElementById('codeDisplay').innerHTML = update1a;
+		// $('#leaderboardTable > tbody').reload();
+		reload();
+		return false;
 	});
 
 
+
+
 	</script>
+
+
 </body>
+
 </html>
+
+
+
+
+
 
 
