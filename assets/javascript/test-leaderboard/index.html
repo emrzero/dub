@@ -131,13 +131,14 @@
 
 		// Grabs user input
 		var playerName = $("#playerNameInput").val().trim();
-		var score = $("#scoreInput").val();
+		var score = parseInt($("#scoreInput").val().trim());
 
 		// Creates local "temporary" object for holding train data
 		// Converts form input score from string to integer
 		var newPlayer = {
-			playerName:  playerName,
-			score: parseInt(score)
+			playerName : playerName,
+			score : score,
+			scoreInverse : -score
 		};
 
 		// Uploads newPlayer result data to the database
@@ -169,9 +170,11 @@
 	// Pseudo 02 : test pulling player result
 	// database.ref().on("child_added", function(childSnapshot, prevChildKey){
 	// database.ref().orderByChild('score').limitToFirst(5).on("child_added", function(childSnapshot, prevChildKey){
-	database.ref().orderByChild('score').on("child_added", function(childSnapshot){
+
+	database.ref().orderByChild('scoreInverse').on("child_added", function(childSnapshot){
 
 		// Snapshot info
+		console.log('firebase ref', database.ref());
 		console.log(childSnapshot.val());
 
 	// Store everything into a variable.
