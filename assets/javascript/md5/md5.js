@@ -300,7 +300,7 @@ var MD5 = function (string) {
     answer = characters[computerGuess];
     $('#here').html("Guess the character that has meets the following criteria: ");
     $('#here').append("<div>" + charHints[hintCounter] + "</div>");
-    hintCounter++;
+    console.log(hintCounter);
     $('#playerScore').append("Current Score: " + playerScore);
     $('#questionScore').append("This question is worth: " + questionScore);
 
@@ -331,12 +331,13 @@ var MD5 = function (string) {
     });
 
     function hint() {
-      if (hintCounter > 4){
+      if (hintCounter >= 4){
         alert("You cannot take anymore hints! You must guess a character.")
         return false;
       }
       else {
         hintCounter++;
+        console.log(hintCounter);
         var hintguess = charHints[hintCounter];
         $('#here').append("<div>" + hintguess + "</div>");
         questionScore--;
@@ -345,10 +346,17 @@ var MD5 = function (string) {
     }
 
     function reset() {
-      hintCounter = 1;
+      hintCounter = 0;
       questionScore = 5;
-      computerGuess = Math.floor(Math.random()*charactersChosen.length);
-      var callbackParam = characters[computerGuess][0];
+      charHints = [];
+      var number = Math.floor(Math.random()*charactersGame.length);
+      var computerGuess = charactersGame[number];
+      console.log(computerGuess);
+      for (key in characters[computerGuess]){
+        charHints.push(key + " : "+ characters[computerGuess][key]);
+      }
+      console.log(charHints);
+      var callbackParam = charactersChosen[number];
       queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h + "&name=" + callbackParam;
       $.ajax({
         url: queryURL,
@@ -358,5 +366,5 @@ var MD5 = function (string) {
         $('#here').html("Guess the character that has meets the following criteria: ");
         $('#here').append("<div>" + characters[computerGuess][hintCounter] + "</div>");
       });
-    }
+    };
   });
