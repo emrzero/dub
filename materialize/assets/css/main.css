@@ -1,0 +1,17 @@
+* {
+  font-family: 'Oswald', sans-serif;
+}
+
+.btn, .btn-large {
+    text-decoration: none;
+    color: #fff;
+    background-color: #FB000F;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+    cursor: pointer;
+}
+
+.btn:hover, .btn-large:hover {
+    background-color: #FC6169;
+}

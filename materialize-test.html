@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+    <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+          
+</head>
+<body>
+
+
+
+<div>
+    <div class="row" ng-controller="mainCtrl">
+        <div class="s10 offset-s1 col">
+            <h2>Responsive Cards</h2>
+            <h4>MaterializeCSS, AngularJS + Animate CSS</h4>
+        </div>
+        <div class="s10 offset-s1 col">
+            <div class="row">
+        <div class="col m4 animated fadeInUp"
+            style="-webkit-animation-duration:{{$index * 300}}ms" 
+            ng-repeat="u in users">
+            <div class="card blue lighten-1">
+                <div class="card-content center-align">
+                    <div class="card-title truncate">{{u.user.username}}</div>
+                    <img class="circle" src="{{u.user.picture.medium}}">
+                    <p class="blue-text text-darken-4">This is some description or profile text here..</p>
+                    <br>
+                    <div class="row">
+                        <div class="col m2 hide-on-small-only">&nbsp;</div>
+                        <div class="col m2 s6 center-align"><a href=""><i class="white-text small mdi-action-face-unlock"></i></a></div>
+                        <div class="col m2 s6 center-align"><a href=""><i class="white-text small mdi-action-highlight-remove"></i></a></div>
+                        <div class="col m2 s6 center-align"><a href=""><i class="white-text small mdi-action-alarm-on"></i></a></div>
+                        <div class="col m2 s6 center-align"><a href=""><i class="white-text small mdi-action-account-balance"></i></a></div>
+                        <div class="col m2 .hide-on-small-only">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="card-action center-align truncate">
+                    <a href="#" class="blue-text text-darken-4">{{u.user.location.city}}, {{u.user.location.state}}</a>
+                </div>
+            </div><!--/card-->
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  var myApp = angular.module('myApp', []);
+  myApp.controller('mainCtrl', function Main($scope, $http){
+  
+  $http.get('http://api.randomuser.me/?results=24').success(function(data) {
+    $scope.users = data.results;
+  }).error(function(data, status) {
+      alert('get data error!');
+    });
+  });
+</script>
+
+</body>
+</html>
