@@ -16,3 +16,10 @@
 .btn:hover, .btn-large:hover {
     background-color: #FC6169;
 }
+
+#wolverine {
+    position: absolute;
+    right:0;
+    z-index: 1;
+    float: right;
+}
