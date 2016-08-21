@@ -36,7 +36,7 @@ $('#submit').on('click', function(){
   }, 6000);
 
   setTimeout(function(){
-    $('#leaderBoardContainer').show('slowly');
+    $('#leaderBoardContainer').show('slow');
   }, 6000);
 });
 // function begin(){
@@ -61,8 +61,10 @@ $("#name").keyup(function(event){
 
 $(document).on('click','#getHints', function(){
   $('#hintsContainer').show('slow');
-    var newLi = $('<li>');
-    newLi.addClass('collection-item');
-    newLi.text("Here's a hint!");
-    $('#hints').append(newLi).show('slow');
+    // var newLi = $('<li>');
+    // newLi.addClass('collection-item');
+    var newBlock = $('<blockquote>');
+    newBlock.text("Here's a hint!");
+    // newLi.append(newBlock);
+    $('#hints').append(newBlock).show('slow');
 });

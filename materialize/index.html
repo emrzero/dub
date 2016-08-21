@@ -70,7 +70,7 @@
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content input-field">
-      <h4>Enter your Name (or nickname)</h4>
+      <h4 class="flow-text">Enter your Name (or nickname)</h4>
       <input type="text" name="name" id="name">
     </div>
     <div class="modal-footer">
@@ -83,78 +83,73 @@
 
   <div class="row center-align">
     <div class="col s4" >
-      <h4>Player: <span id="playerName"></span></h4>
+      <h4 class="flow-text">Player: <span class="flow-text" id="playerName"></span></h4>
     </div>
     <div class="col s4">
-      <a class="btn waves-effect waves-teal btn-flat" id="getHints">Get Hint!</a>
+      <a class="btn waves-effect waves-teal btn-flat hide-on-small-only" id="getHints">Get Hint!</a>
+      
+      <a class="btn waves-effect waves-teal btn-flat hide-on-med-and-up" id="getHints">Hint!</a>
+
+
     </div>
     <div class="col s4">
-      <h4> HP: <span id="hp"></span></h4>
+      <h4 class="flow-text"> HP: <span id="hp" class="flow-text"></span></h4>
     </div>
   </div>
 
   <div class="row">
     <div class="col s12" id="instructions">
-      <h1> Instructions</h1>
-      <h2> Choose the character that meets the criteria. Request hints (for a price of 1 hit point) or take a guess. </h2>
+      <h1 class="flow-text"> Instructions</h1>
+      <h2 class="flow-text"> Choose the character that meets the criteria. Request hints (for a price of 1 hit point) or take a guess. </h2>
     </div>
   </div>
 </div>
 
-<div class="row" id="charOptions">
-  <div class="col s1">
+<div class="row center-align" id="charOptions">
+
+<div class="col s2 m2 l2">
     </div>
 
-  <div class="col s1">
+  <div class="col s2 m2 l2">
      <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">stars</i></a>
   </div>
 
-  <div class="col s1">
-    </div>
-<div class="col s1">
-    </div>
 
-  <div class="col s1">
+  <div class="col  s2 m2 l2">
      <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">stars</i></a>
   </div>
 
-  <div class="col s1">
-    </div>
 
-    <div class="col s1">
-    </div>
 
-  <div class="col s1">
+  <div class="col  s2 m2 l2">
      <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">stars</i></a>
   </div>
 
-  <div class="col s1">
-    </div>
 
-    <div class="col s1">
-    </div>
-
-  <div class="col s1">
+  <div class="col  s2 m2 l2">
      <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">stars</i></a>
   </div>
 
-  <div class="col s1">
+  <div class="col s2 m2 l2">
     </div>
+
+<!--   <div class="col s1 m1 l1">
+    </div> -->
 
 </div>
 
   <div class="row" id="hintsContainer">
-    <div class="col s4">
+    <div class="col hide-on-small-only m2">
     </div>
-    <div class="col s4">
-      <ul id="hints" class="collection">
+    <div class="col s12 m8" id="hints">
+      <!-- <ul id="hints" class="collection"> -->
 <!--         <li>Hint</li>
         <li>Hint</li>
         <li>Hint</li>
         <li>Hint</li> -->
-      </ul>
+      <!-- </ul> -->
     </div>
-    <div class="col s4">
+    <div class="col hide-on-small-only m2">
     </div>
   </div>
 </div>
@@ -204,7 +199,7 @@
 </div>
 
  <!-- Footer: Small Leader Board -->
-<div class="container site-footer" id="leaderBoardContainer">
+<div class="container site-footer hide-on-small-only" id="leaderBoardContainer">
   <div class="row">
     <div class="col s12 marquee " data-duration='5000' data-gap='10' data-duplicated='true'>
 

@@ -66,7 +66,12 @@
        .input-field input[type=text]:focus + label {
          color: #FB000F;
        }
-
+blockquote {
+    margin: 20px 2em;
+    padding-left: 1.5rem;
+    border-left: 5px solid #ee6e73;
+    display: inline-block;
+}
     #leaderBoard > li {
         display: inline-block;
         margin: 0 10px;
