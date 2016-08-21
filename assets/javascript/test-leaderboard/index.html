@@ -151,34 +151,34 @@
 
 	var database = firebase.database();
 
-	var dbArray = [];
+	// var dbArray = [];
 
 	// database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot, prevChildKey){
 
-	database.ref().on('child_added', function(snapshot, prevChildKey){
+	// database.ref().on('child_added', function(snapshot, prevChildKey){
 
 		// puts snapshot of firebase to an array
-		dbArray.push(snapshot.val());
+		// dbArray.push(snapshot.val());
 
-		var newArr = dbArray.sort(function(a, b) {
-			return a.score - b.score;
-		});
+		// var newArr = dbArray.sort(function(a, b) {
+		// 	return a.score - b.score;
+		// });
 
-			console.log(newArr);
-			console.log('__________________________')
+		// 	console.log(newArr);
+		// 	console.log('__________________________')
 
-		function scoreBoard(arr) {
-			arr.forEach(function(item, index, arr) {
-				console.log('item', playerName.playerName);
+		// function scoreBoard(arr) {
+		// 	arr.forEach(function(item, index, arr) {
+		// 		console.log('item', playerName.playerName);
 
 			// $("#leaderboardTable > tbody").html(
 			// "<tr><td>" + playerName + "</td><td>" + score + "</td></tr>"
 			// );
-			});
+		// 	});
 
-		};
+		// };
 
-		scoreBoard(newArr);
+		// scoreBoard(newArr);
 
 
 			// Player Info
@@ -192,9 +192,10 @@
 		// 	"<tr><td>" + playerName + "</td><td>" + score + "</td></tr>"
 		// );
 
-	});
+	// });
 
-	console.log('db array', dbArray)
+
+	// console.log('db array', dbArray)
 
 	function update1a(){
 
@@ -208,19 +209,33 @@
 		});
 	};
 
+	$('#sort1a').on('click', function(){
+		update1a();
+		document.getElementById('codeDisplay').innerHTML = update1a;
+		reload();
+		return false;
+	});
+
+	database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot, prevChildKey){
+
+		var playerName = snapshot.val().playerName;
+		var score = snapshot.val().score;
+
+		$('#leaderboardTable > tbody').append(
+			'<tr><td>' + playerName + '</td><td>' + score + '</td><tr>'
+		);
+
+		return false;
+	});
+
+
+
 	$('#update1a').on('click', function(){
 		update1a();
 		document.getElementById('codeDisplay').innerHTML = update1a;
 		return false;
 	});
 
-		$('#sort1a').on('click', function(){
-		update1a();
-		document.getElementById('codeDisplay').innerHTML = update1a;
-		// $('#leaderboardTable > tbody').reload();
-		reload();
-		return false;
-	});
 
 	function set1a(){
 
@@ -280,8 +295,6 @@
 		return false;
 	});
 
-
-
 	function update1b(){
 
 		var playerName = $('#playerNameInput1').val().trim();
@@ -305,10 +318,6 @@
 		return false;
 
 	});
-
-
-
-
 
 
 	</script>
