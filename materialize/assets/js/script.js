@@ -9,6 +9,7 @@ $('#questionContainer').hide();
 $('#charOptions').hide();
 $('#hintsContainer').hide();
 $('#leaderBoardContainer').hide();
+$('#mainLeaderBoardContainer').detach();
 $('.modal-trigger').leanModal(); //Initialize jQuery for Modal
 
 
@@ -42,7 +43,9 @@ $('#submit').on('click', function(){
 //   alert("let's begin");
 // }
 $('#wolverine').hide();
-setTimeout($('#wolverine').show('slow'), 1000);
+setTimeout(function(){
+  $('#wolverine').show('slow');
+}, 1000);
 
 // setTimeout($('#wolverine').toggle('right'), 2000);
 
