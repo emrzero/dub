@@ -8,6 +8,7 @@ var game = {
 $('#questionContainer').hide();
 $('#charOptions').hide();
 $('#hintsContainer').hide();
+$('#leaderBoardContainer').hide();
 $('.modal-trigger').leanModal(); //Initialize jQuery for Modal
 
 
@@ -31,6 +32,10 @@ $('#submit').on('click', function(){
 
   setTimeout(function(){
     $('#charOptions').show('slow');
+  }, 6000);
+
+  setTimeout(function(){
+    $('#leaderBoardContainer').show('slowly');
   }, 6000);
 });
 // function begin(){

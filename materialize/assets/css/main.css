@@ -2,6 +2,25 @@
   font-family: 'Oswald', sans-serif;
 }
 
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -100px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  height: 100px; 
+}
+/*.site-footer {
+  background: orange;
+}*/
+
 .btn, .btn-large {
     width: 100%;
     text-decoration: none;
@@ -22,4 +41,16 @@
     right:0;
     z-index: 1;
     float: right;
+    -webkit-transform: scale(0.5); /* Saf3.1+, Chrome */
+     -moz-transform: scale(0.5); /* FF3.5+ */
+      -ms-transform: scale(0.5); /* IE9 */
+       -o-transform: scale(0.5); /* Opera 10.5+ */
+          transform: scale(0.5);
+             /* IE6–IE9 */
+}
+
+#leaderBoard > li {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 2em;
 }
