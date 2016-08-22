@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <title>Marvel</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet"> -->
 
 <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -32,7 +32,7 @@
 
  <!-- <img id="wolverine" class="responsive-img" src="assets/images/wolverine.png"> -->
 <div class="page-wrap">
-  <img id="wolverine" class="responsive-img" src="assets/images/ironman.png">
+  <img id="wolverine" class="responsive-img" src="assets/images/ironman.png" alt="ironman">
 <div class="container" id="welcome"> 
   <!-- <div class="row">
     <div class="col l4 push-l4">
@@ -41,31 +41,32 @@
     </div>
     <div class="col l4">
   </div> -->
+<div class="row hide-med-and-up">
+  <div class="col s12" id="topPadding"></div>
+</div>
+
     <div class="row">
       <div class="col s12">
-         <img class="responsive-img" src="assets/images/marvel.jpg">
+         <img class="responsive-img" src="assets/images/marvel.jpg" alt="marvel logo">
       </div>
     </div>
 
       <div class="row">
 
       <div class="col s4">
-        <!-- Promo Content 1 goes here -->
       </div>
       <div class="col s4">
             <a id="begin" class="waves-effect waves-light btn-large  modal-trigger" href="#modal1">Begin
             </a>
       
-
-        <!-- Promo Content 2 goes here -->
       </div>
       <div class="col s4">
-        <!-- Promo Content 3 goes here -->
       </div>
 
     </div>
           
 </div>
+
 
 
   <!-- Modal Trigger -->
@@ -82,13 +83,7 @@
     </div>
     <!-- <div class="modal-content input-field">
       <div class="row" id="fbase-ui-experiment"> -->
-  <div class="col s12 m8 l6">
-     <!-- <div id="firebaseui-auth-container"> -->
-       
-     </div>
-  </div>
-</div> 
-    </div>
+
   </div> <!-- End Modal -->
 
   <!-- Begin Questions -->
@@ -153,7 +148,6 @@
 
   <div class="row" id="hintsContainer">
     <div class="col hide-on-small-only m2">
-      <
     </div>
     <div class="col s12 m8" id="hints">
       <!-- <ul id="hints" class="collection"> -->
@@ -166,9 +160,9 @@
     <div class="col hide-on-small-only m2">
     </div>
   </div>
-</div>
 
-</div> 
+</div> <!-- End Page Wrap -->
+
 
 <!--   End Questions -->
 
@@ -179,10 +173,10 @@
     </div>
     <div class="col s10 m8 l8">
       <table class="responsive-table centered hightlight">
-        <thead>
+        <tr>
           <th>Name</th>
           <th>Score</th>
-        </thead>
+        </tr>
         <tbody id="board">
           <tr>
             <td>Kent</td>

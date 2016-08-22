@@ -17,6 +17,15 @@ html, body {
 .site-footer, .page-wrap:after {
   height: 100px; 
 }
+
+#topPadding {
+    min-height: 25%;
+}
+
+#topPadding:after {
+    content: "";
+    display: block;
+}
 /*.site-footer {
   background: orange;
 }*/
