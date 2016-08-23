@@ -1,7 +1,125 @@
 
+var characters = {
+    thor: {
+      Team: 'Avengers',
+      Origin: 'Asgard',
+      Archnemesis: 'Loki',
+      Power: 'Mjolnir',
+      Alias: 'Thor Odinson'
+    },
+    ironman: {
+      Team: 'Avengers',
+      Origin: 'Long Island',
+      Archnemesis: 'Obadiah Stone',
+      Power: 'Powered Armor Suit',
+      Alias: 'Tony Stark'
+    },
+    captainamerica: {
+      Team: 'Avengers',
+      Origin: 'Manhattan',
+      Archnemesis: 'Baron Zemo',
+      Power: 'Vibranium-Steel Alloy Shield',
+      Alias: 'Steve Rodgers'
+    },
+    blackwidow: {
+      Team: 'Avengers',
+      Origin: 'Stalingrad',
+      Archnemesis: 'Black Lotus',
+      Power: 'Widow\'s Bite',
+      Alias: 'Natasha Romanova'
+    },
+    spiderman: {
+      Team: 'Avengers',
+      Origin: 'Queens',
+      Archnemesis: 'Doctor Octopus',
+      Power: 'Spider-Sense',
+      Alias: 'Peter Parker'
+    },
+  };
+
+  var playerScore = 0;
+  var charactersGame = ['thor', 'captainamerica', 'ironman', 'spiderman', 'blackwidow'];
+  var charactersChosen = ["thor", "captainamerica", "ironman", "spiderman", "blackwidow"];
+  var hintCounter = 0;
+  var charHints = [];
+  var questionScore;
+  var callbackParam;
+  var hintguess;
+  var computerNumber;
+  var computerGuess;
+  var number;
+  var charactersLeft = 5;
+
+  function gameInitialize() {
+
+
+    questionScore = 5;
+
+    var answer = "";
+    //var thor = false;
+    //var ironman = false;
+    //var captainamerica = false;
+    //var wolverine = false;
+    //var spiderman = false;
+
+    var number = Math.floor(Math.random()*charactersChosen.length);
+    computerNumber = number;
+    var computerGuess = charactersChosen[number];
+    console.log(computerGuess);
+    callbackParam = charactersChosen[number];
+
+    for (key in characters[computerGuess]){
+      charHints.push(key + " : "+ characters[computerGuess][key]);
+    }
+    //console.log(characters.computerGuess.Team);
+
+    // var unix = Math.round(+new Date()/1000);
+    // console.log(unix);
+
+    // var publicAPIkey = "5664cba2d0357c1f7e1a63f962247a76";
+    // var privateAPIkey = "0624d293385e3f5fdfbef056afdcb2eced4303f9";
+
+    // var h = MD5(unix + privateAPIkey + publicAPIkey);
+
+    // var apiURL = 'http://gateway.marvel.com:80/v1/public/characters';
+    // var apiKey = '5664cba2d0357c1f7e1a63f962247a76';
+    // var callbackParam = charactersChosen[number];
+    // var timeStamp = Date.now();
+
+    // var queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h + "&name=" + callbackParam;
+    // console.log(queryURL);
+
+    // $.ajax({
+    //   url: queryURL,
+    //   method: 'GET'
+    // })
+    // .done(function(response) {
+
+      //console.log(response.data.results[0].name);
+      // console.log(response);
+
+      // var thumbnail = response.data.results[0].thumbnail.path
+      // var path = response.data.results[0].thumbnail.extension
+      // console.log(thumbnail + "." + path)
+      //$('#here').append("<img src=" + thumbnail + "." + path + " height=" + "200" +  " width=" + "200" + " id=" + "character" + ">");
+      //$('#here').append("Question " + (pos+1) + " of " + characters.length);
+
+      answer = characters[computerGuess];
+      $('#here').html("Guess the character that has meets the following criteria: ");
+      $('#hintText').html("<div>" + charHints[hintCounter] + "</div>");
+      $('#playerScore').html("Current Score: " + playerScore);
+      $('#questionScore').html("This question is worth: " + questionScore);
+
+    // });
+  };
+
+//-----------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------//
+
 var game = {
   playerName: "",
-  hp: 100
+  hp: 10
 }
 
 
@@ -64,7 +182,103 @@ $(document).on('click','#getHints', function(){
     // var newLi = $('<li>');
     // newLi.addClass('collection-item');
     var newBlock = $('<blockquote>');
-    newBlock.text("Here's a hint!");
+    newBlock.text(charHints[hintCounter]);
     // newLi.append(newBlock);
-    $('#hints').append(newBlock).show('slow');
+
+    if (hintCounter >= 4){
+      alert("You cannot take anymore hints! You must guess a character.")
+      return false;
+    }
+    else {
+      hintCounter++;
+      $('#hints').append(newBlock).show('slow');
+      game.hp--;
+      //$('#questionScore').html("This question is worth: " + questionScore);
+      $('#hp').text(game.hp);
+    }
 });
+
+$(document).on('click', '.character', function(){
+// $('.character').on('click', function() {
+  var userGuess = $(this).attr('id');
+
+  if (userGuess == callbackParam) {
+    alert("Correct!")
+    
+    // playerScore += questionScore;
+    // $('#playerScore').html("Current Score: " + playerScore);
+    charactersGame.splice(computerNumber, 1);
+    charactersChosen.splice(computerNumber, 1);
+    if (charactersLeft > 1) {
+      charactersLeft--;
+      reset();
+    } else {
+      alert("No more characters!");
+      $('#here').html("Congratulations!");
+      $('#hintText').html("<div>Your final score is: " + playerScore + "</div>");
+      $('#playerScore').html("");
+      $('#questionScore').html("");
+      return false;
+      // charactersGame.splice(computerNumber, 1);
+      // charactersChosen.splice(computerNumber, 1);
+      // console.log("characters Game: " + charactersGame);
+      // console.log("characters Chosen: " + charactersChosen);
+    }
+    
+
+  }
+
+    else {
+    alert("Wrong!");
+    game.hp--;
+    // hint();
+  }
+
+
+
+        //   if (characters.length = 0) {
+        //     alert("No more characters");
+        //     return false;
+        //   } else {
+        //     charactersChosen.splice(computerGuess, 1);
+        //     charactersGame.splice(number, 1);
+        //     reset();
+        //   }
+          // reset();
+
+
+        
+});
+
+function reset() {
+  hintCounter = 0;
+  questionScore = 5;
+  charHints = [];
+  $('#hintsContainer').empty();
+  //number = Math.floor(Math.random()*charactersGame.length);
+  //computerNumber = number;
+  //computerGuess = charactersGame[number];
+  answer = "";
+  /*console.log(computerGuess);
+  for (key in characters[computerGuess]){
+    charHints.push(key + " : "+ characters[computerGuess][key]);
+  }
+  console.log(charHints);
+  var callbackParam = charactersChosen[number];
+  queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h + "&name=" + callbackParam;
+  $.ajax({
+    url: queryURL,
+    method: 'GET'
+  })
+  .done(function(response) {
+    $('#here').html("Guess the character that has meets the following criteria: ");
+    $('#here').append("<div>" + characters[computerGuess][hintCounter] + "</div>");
+  });*/
+  gameInitialize();
+};
+
+//-----------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------//
+
+gameInitialize();

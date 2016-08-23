@@ -373,7 +373,7 @@ $(document).on('click', '.character', function(){
         
 });
 
-$(document).on('click', '#hint', function(){
+$(document).on('click', '#getHints', function(){
   hint();
 });
 
