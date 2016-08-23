@@ -61,11 +61,6 @@ var characters = {
     questionScore = 5;
 
     var answer = "";
-    //var thor = false;
-    //var ironman = false;
-    //var captainamerica = false;
-    //var wolverine = false;
-    //var spiderman = false;
 
     var number = Math.floor(Math.random()*charactersChosen.length);
     computerNumber = number;
@@ -110,12 +105,6 @@ var characters = {
       //$('#here').append("Question " + (pos+1) + " of " + characters.length);
 
       answer = characters[computerGuess];
-      // $('#here').html("Guess the character that has meets the following criteria: ");
-      // $('#hintText').html("<div>" + charHints[hintCounter] + "</div>");
-      // $('#playerScore').html("Current Score: " + playerScore);
-      // $('#questionScore').html("This question is worth: " + questionScore);
-
-    // });
   };
 
 //-----------------------------------------------------------------------------------------//
@@ -200,21 +189,22 @@ $(document).on('click','#getHints', function(){
       hintCounter++;
       $('#hints').append(newBlock).show('slow');
       game.hp--;
-      //$('#questionScore').html("This question is worth: " + questionScore);
+
       $('#hp').text(game.hp);
     }
 });
 
 $(document).on('click', '.character', function(){
-// $('.character').on('click', function() {
+
   var userGuess = $(this).attr('id');
 
   if (userGuess == callbackParam) {
     $('#hints').html("Correct!")
-    
     game.hp += 10;
     $('#hp').text(game.hp);
-    // $('#playerScore').html("Current Score: " + playerScore);
+
+    correctGif();
+
     charactersGame.splice(computerNumber, 1);
     charactersChosen.splice(computerNumber, 1);
     if (charactersLeft > 1) {
@@ -223,14 +213,7 @@ $(document).on('click', '.character', function(){
       reset();
     } else {
       $('#hints').html("Congratulations! Your final score is: " + game.hp).show('slow');
-      // $('#hintText').html("<div>Your final score is: " + playerScore + "</div>");
-      // $('#playerScore').html("");
-      // $('#questionScore').html("");
       location.reload();
-      // charactersGame.splice(computerNumber, 1);
-      // charactersChosen.splice(computerNumber, 1);
-      // console.log("characters Game: " + charactersGame);
-      // console.log("characters Chosen: " + charactersChosen);
     }
     
 
@@ -238,23 +221,8 @@ $(document).on('click', '.character', function(){
 
     else {
     game.hp--;
-    // hint();
   }
-
-
-
-        //   if (characters.length = 0) {
-        //     alert("No more characters");
-        //     return false;
-        //   } else {
-        //     charactersChosen.splice(computerGuess, 1);
-        //     charactersGame.splice(number, 1);
-        //     reset();
-        //   }
-          // reset();
-
-
-        
+       
 });
 
 function reset() {
@@ -262,26 +230,36 @@ function reset() {
   questionScore = 5;
   charHints = [];
   $('#hints').empty();
-  //number = Math.floor(Math.random()*charactersGame.length);
-  //computerNumber = number;
-  //computerGuess = charactersGame[number];
-  //answer = "";
-  /*console.log(computerGuess);
-  for (key in characters[computerGuess]){
-    charHints.push(key + " : "+ characters[computerGuess][key]);
-  }
-  console.log(charHints);
-  var callbackParam = charactersChosen[number];
-  queryURL = apiURL + "?ts=" + unix + "&apikey=" + publicAPIkey + "&hash=" + h + "&name=" + callbackParam;
+
+  gameInitialize();
+};
+
+function correctGif(){
+  alert("here");
+
+  var celebration = "celebration";
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + celebration + "&api_key=dc6zaTOxFJmzC&limit=1";
+
   $.ajax({
     url: queryURL,
     method: 'GET'
   })
   .done(function(response) {
-    $('#here').html("Guess the character that has meets the following criteria: ");
-    $('#here').append("<div>" + characters[computerGuess][hintCounter] + "</div>");
-  });*/
-  gameInitialize();
+
+    var results = response.data[0];
+    console.log(response);
+
+    var celebrationDiv = $('<div>');
+
+    var celebrationGif = $('<img>');
+    celebrationGif.attr('src', results.images.fixed_height.url);
+    celebrationGif.addClass('resultGif');
+
+    celebrationDiv.append(celebrationGif);
+      
+    $('#hints').prepend(celebrationDiv);
+    alert("Here");
+  });
 };
 
 //-----------------------------------------------------------------------------------------//
