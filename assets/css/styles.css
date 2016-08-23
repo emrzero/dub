@@ -1,0 +1,25 @@
+
+.sidebar {
+	font-family: 'Monoton', cursive;
+	color:blue;
+	text-align: center;
+	background-image:Wolverine-Marvel-Comics-tall-l.jpg;
+	width: 100%;
+	height: 100%;
+	max-width: 270px;
+	float: right;
+	border: 10px solid #ddd;
+	margin-bottom: 20px;
+}
+.leader {
+    font-size: 23px;
+    font-color: yellow;
+    
+}
+.table {
+margin:2px 5px;
+background-color:
+color:#ff0000;
+
+}
+
