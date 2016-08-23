@@ -210,7 +210,7 @@ $(document).on('click', '.character', function(){
   var userGuess = $(this).attr('id');
 
   if (userGuess == callbackParam) {
-    $('#hints').html("Correct!")
+    alert("Correct!")
     
     game.hp += 10;
     $('#hp').text(game.hp);
@@ -237,6 +237,7 @@ $(document).on('click', '.character', function(){
   }
 
     else {
+      alert("Wrong!")
     game.hp--;
     // hint();
   }
