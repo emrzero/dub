@@ -188,20 +188,8 @@
 		console.log('sorted', sortedLeaderBoard);
 	};
 
-	function sortUpdatedLeaderBoard() {
-			database.ref().on('child_changed', function (snapshot) {
-				console.log('snapshot from child_changed', snapshot.val())
-			})		
-	};
+	function updateLeaderBoard() {
 
-
-	$('#sort1a').on('click', function(){
-
-
-		// $('#leaderboardTable > tbody').remove();
-
-		sortLeaderBoard(dbArray)
-		
 		var playerName = $('#playerNameInput1').val().trim();
 		var score = parseInt($('#scoreInput1').val().trim());
 
@@ -210,8 +198,50 @@
 			score : score,
 			scoreInverse : -score
 		}, function() {
-			sortUpdatedLeaderBoard()
+			addPlayerResult(playerName, score)
 		});
+
+		console.log('updateLeaderBoard called')
+	};
+
+
+	function addPlayerResult(name, score) {
+
+		var sorted = [];
+		database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+
+		// // puts snapshot of firebase to an array
+		// dbArray.push(snapshot.val());
+		// console.log('snapshot')
+
+		playerName = snapshot.val().playerName;
+		score = snapshot.val().score;
+
+		sorted.push(snapshot.val())
+
+		//$('#leaderboardTable > tbody').remove();
+
+
+		});	
+		console.log(sorted, 'sorted')
+		$('#leaderboardTable > tbody').empty()
+				// adding new table rows and displaying firebase data
+		sorted.forEach(function(item) {
+			$("#leaderboardTable > tbody").append(
+				"<tr><td>" + item.playerName + "</td><td>" + item.score + "</td></tr>"
+			);			
+		});
+	}
+
+
+	$('#sort1a').on('click', function(){
+
+
+		// $('#leaderboardTable > tbody').remove();
+
+		//sortLeaderBoard(dbArray)
+		updateLeaderBoard();
+	
 
 
 		
@@ -227,7 +257,7 @@
 
 	// This is just a button to wipe firebase clean
 	$('#deleteall1').on('click', function(){
-		database.ref().remove();
+		//database.ref().remove();
 
 		return false;
 
