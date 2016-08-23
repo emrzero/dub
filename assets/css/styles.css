@@ -1,14 +1,21 @@
 .sidebar {
-	background color: blue;
-	padding: 30px;
+	font-family: 'Monoton', cursive;
+	color:blue;
+	background-image:
 	width: 100%;
 	max-width: 270px;
 	float: right;
-	border: 5px solid #ddd;
+	border: 10px solid #ddd;
 	margin-bottom: 20px;
 }
-th{
+.leader {
+    font-size: 23px;
+    font-color: yellow;
+    
+}
+.table {
 margin:2px 5px;
-background-color: yellow;
+background-color: gray;
+color:#ff0000;
 
 }
