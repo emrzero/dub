@@ -246,12 +246,17 @@ var MD5 = function (string) {
   };
 
   var playerScore = 0;
-  var charactersGame = ['thor', 'ironman', 'captainamerica', 'blackwidow', 'spiderman'];
-  var charactersChosen = ["thor", "ironman", "captainamerica", "blackwidow", "spiderman"];
+  var charactersGame = ['thor', 'captainamerica', 'ironman', 'spiderman', 'blackwidow'];
+  var charactersChosen = ["thor", "captainamerica", "ironman", "spiderman", "blackwidow"];
   var hintCounter = 0;
   var charHints = [];
   var questionScore;
   var callbackParam;
+  var hintguess;
+  var computerNumber;
+  var computerGuess;
+  var number;
+  var charactersLeft = 5;
 
   function gameInitialize() {
 
@@ -265,8 +270,9 @@ var MD5 = function (string) {
     //var wolverine = false;
     //var spiderman = false;
 
-    var number = Math.floor(Math.random()*charactersGame.length);
-    var computerGuess = charactersGame[number];
+    var number = Math.floor(Math.random()*charactersChosen.length);
+    computerNumber = number;
+    var computerGuess = charactersChosen[number];
     console.log(computerGuess);
     callbackParam = charactersChosen[number];
 
@@ -309,37 +315,48 @@ var MD5 = function (string) {
       answer = characters[computerGuess];
       $('#here').html("Guess the character that has meets the following criteria: ");
       $('#hintText').html("<div>" + charHints[hintCounter] + "</div>");
-      console.log(hintCounter);
       $('#playerScore').html("Current Score: " + playerScore);
       $('#questionScore').html("This question is worth: " + questionScore);
-
-      $('#hint').on('click', function(){
-        hint();
-      });
-
-      
-
 
     // });
   };
 
 $(document).on('click', '.character', function(){
 // $('.character').on('click', function() {
-var userGuess = $(this).attr('id');
-console.log(userGuess);
+  var userGuess = $(this).attr('id');
 
-if (userGuess == callbackParam) {
-  alert("Correct!")
-  playerScore += questionScore;
-  $('#playerScore').html("Current Score: " + playerScore);
-  reset();
+  if (userGuess == callbackParam) {
+    alert("Correct!")
+    
+    playerScore += questionScore;
+    $('#playerScore').html("Current Score: " + playerScore);
+    charactersGame.splice(computerNumber, 1);
+    charactersChosen.splice(computerNumber, 1);
+    if (charactersLeft > 1) {
+      charactersLeft--;
+      reset();
+    } else {
+      alert("No more characters!");
+      $('#here').html("Congratulations!");
+      $('#hintText').html("<div>Your final score is: " + playerScore + "</div>");
+      $('#playerScore').html("");
+      $('#questionScore').html("");
+      return false;
+      // charactersGame.splice(computerNumber, 1);
+      // charactersChosen.splice(computerNumber, 1);
+      // console.log("characters Game: " + charactersGame);
+      // console.log("characters Chosen: " + charactersChosen);
+    }
+    
 
-}
+  }
 
-  else {
-  alert("Wrong!");
-  // hint();
-}
+    else {
+    alert("Wrong!");
+    questionScore--;
+    // hint();
+  }
+
 
 
         //   if (characters.length = 0) {
@@ -354,7 +371,11 @@ if (userGuess == callbackParam) {
 
 
         
-      });
+});
+
+$(document).on('click', '#hint', function(){
+  hint();
+});
 
 function hint() {
 if (hintCounter >= 4){
@@ -363,8 +384,7 @@ if (hintCounter >= 4){
 }
 else {
   hintCounter++;
-  console.log(hintCounter);
-  var hintguess = charHints[hintCounter];
+  hintguess = charHints[hintCounter];
   $('#hintText').append("<div>" + hintguess + "</div>");
   questionScore--;
   $('#questionScore').html("This question is worth: " + questionScore);
@@ -372,13 +392,13 @@ else {
 }
 
 function reset() {
-  console.log('reset')
   hintCounter = 0;
   questionScore = 5;
   charHints = [];
-  var number = Math.floor(Math.random()*charactersGame.length);
-  var computerGuess = charactersGame[number];
-  var answer = "";
+  //number = Math.floor(Math.random()*charactersGame.length);
+  //computerNumber = number;
+  //computerGuess = charactersGame[number];
+  answer = "";
   /*console.log(computerGuess);
   for (key in characters[computerGuess]){
     charHints.push(key + " : "+ characters[computerGuess][key]);
