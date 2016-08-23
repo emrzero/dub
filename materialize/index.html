@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Marvel</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+
+<!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+   <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+
+          
+</head>
+<body>
+
+
+ <!-- <img id="wolverine" class="responsive-img" src="assets/images/wolverine.png"> -->
+<div class="page-wrap">
+  <img id="wolverine" class="responsive-img" src="assets/images/ironman.png">
+<div class="container" id="welcome"> 
+  <!-- <div class="row">
+    <div class="col l4 push-l4">
+    <div class="col l4 pull-l4" >
+      <a class="waves-effect waves-light btn-large">Begin</a>
+    </div>
+    <div class="col l4">
+  </div> -->
+    <div class="row">
+      <div class="col s12">
+         <img class="responsive-img" src="assets/images/marvel.jpg">
+      </div>
+    </div>
+
+      <div class="row">
+
+      <div class="col s4">
+        <!-- Promo Content 1 goes here -->
+      </div>
+      <div class="col s4">
+            <a id="begin" class="waves-effect waves-light btn-large  modal-trigger" href="#modal1">Begin
+            </a>
+      
+
+        <!-- Promo Content 2 goes here -->
+      </div>
+      <div class="col s4">
+        <!-- Promo Content 3 goes here -->
+      </div>
+
+    </div>
+          
+</div>
+
+
+  <!-- Modal Trigger -->
+  <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content input-field">
+      <h4 class="flow-text">Enter your Name (or nickname)</h4>
+      <input type="text" name="name" id="name">
+    </div>
+    <div class="modal-footer">
+      <a id="submit" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+    </div>
+  </div> <!-- End Modal -->
+
+  <!-- Begin Questions -->
+<div class="container" id="questionContainer">
+
+  <div class="row center-align">
+    <div class="col s4" >
+      <h4 class="flow-text">Player: <span class="flow-text" id="playerName"></span></h4>
+    </div>
+    <div class="col s4">
+      <a class="btn waves-effect waves-teal btn-flat hide-on-small-only" id="getHints">Get Hint!</a>
+      
+      <a class="btn waves-effect waves-teal btn-flat hide-on-med-and-up" id="getHints">Hint!</a>
+
+
+    </div>
+    <div class="col s4">
+      <h4 class="flow-text"> HP: <span id="hp" class="flow-text"></span></h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12" id="instructions">
+      <h1 class="flow-text"> Instructions</h1>
+      <h2 class="flow-text"> Choose the character that meets the criteria. Request hints (for a price of 1 hit point) or take a guess. </h2>
+    </div>
+  </div>
+</div>
+
+<div class="row center-align" id="charOptions">
+
+<div class="col s2 m2 l2">
+    </div>
+
+  <div class="col s2 m2 l2">
+     <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">stars</i></a>
+  </div>
+
+
+  <div class="col  s2 m2 l2">
+     <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">stars</i></a>
+  </div>
+
+
+
+  <div class="col  s2 m2 l2">
+     <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">stars</i></a>
+  </div>
+
+
+  <div class="col  s2 m2 l2">
+     <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">stars</i></a>
+  </div>
+
+  <div class="col s2 m2 l2">
+    </div>
+
+<!--   <div class="col s1 m1 l1">
+    </div> -->
+
+</div>
+
+  <div class="row" id="hintsContainer">
+    <div class="col hide-on-small-only m2">
+    </div>
+    <div class="col s12 m8" id="hints">
+      <!-- <ul id="hints" class="collection"> -->
+<!--         <li>Hint</li>
+        <li>Hint</li>
+        <li>Hint</li>
+        <li>Hint</li> -->
+      <!-- </ul> -->
+    </div>
+    <div class="col hide-on-small-only m2">
+    </div>
+  </div>
+</div>
+
+
+<!-- Main Leader Board -->
+<div class="container" id="mainLeaderBoardContainer">
+  <div class="row">
+    <div class="col s1 m2 l2">
+    </div>
+    <div class="col s10 m8 l8">
+     <section class="sidebar">
+    <div id="">
+     <header><span class= "leader">leader board<span></header> 
+    <h2></h2>
+        <table class="table" id="leaderboardTable">
+        <div class= "table">
+        <thead>
+              
+                <th>User Name</th>
+                <th>High Score</th>
+              
+            </thead>
+            </div>
+            <tbody>
+            <tr><td>ekt</td><td>123</td></tr>
+            <tr><td>ekt</td><td>123</td></tr>
+            <tr><td>ekt</td><td>123</td></tr>
+
+
+
+
+
+
+            </tbody>
+          
+        </table>
+      </section> 
+
+               
+    </div>
+    <div class="col s1 m2 l2">
+    </div>
+  </div>
+</div> <!-- End Leader Board -->
+
+
+
+
+</div> <!-- End page wrapper -->
+
+<!--   End Questions -->
+
+
+ <!-- Footer: Small Leader Board -->
+<div class="container site-footer hide-on-small-only" id="leaderBoardContainer">
+  <div class="row">
+    <div class="col s12 marquee " data-duration='5000' data-gap='10' data-duplicated='true'>
+
+      <ul id="leaderBoard">
+        <li>Leader Board</li>
+        <li> Kent: 345</li>
+        <li> Victor: 234</li>
+        <li> Josh: 123</li>
+        <li> Brian: 94</li>
+        <li> Eliot: 34</li>
+        <!-- <li><button class="btn" id="seeLeaderBoard">See more</button></li> -->
+      </ul>
+    </div>
+  </div>
+</div>
+  
+       
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+  <!-- <script type="text/javascript" src="assets/javascript/jquery.marquee/jquery.marquee.min.js"></script> -->
+
+    <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+
+
+
+  <script type="text/javascript" src="assets/js/script.js"></script>
+</body>
+</html>
