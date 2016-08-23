@@ -1,3 +1,16 @@
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyCBIQ0gzyvDA8GRGDYMAQAO6Jq5tovTc6M",
+    authDomain: "fir-practice-efcb4.firebaseapp.com",
+    databaseURL: "https://fir-practice-efcb4.firebaseio.com",
+    storageBucket: "",
+};
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+
 
 var game = {
   playerName: "",
@@ -70,3 +83,52 @@ $(document).on('click','#getHints', function(){
     // newLi.append(newBlock);
     $('#hints').append(newBlock).show('slow');
 });
+
+
+// leaderboard code from Kent
+database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+  
+  var playerName = snapshot.val().playerName;
+  var score = snapshot.val().score;
+
+  $('#leaderboardTable > tbody').append(
+    '<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+  );
+
+});
+
+
+$('#sort1a').on('click', function(){
+  
+  var playerName = $('#playerNameInput1').val().trim();
+  var score = parseInt($('#scoreInput1').val().trim());
+
+  database.ref(playerName).update({
+    playerName : playerName,
+    score : score,
+    scoreInverse : -score
+  });
+
+  $('#leaderboardTable > tbody').empty();
+
+  database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
+    
+    var playerName = childSnapshot.val().playerName;
+    var score = childSnapshot.val().score;
+
+    $('#leaderboardTable > tbody').append(
+      '<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+    );
+
+  });
+
+  return false;
+});
+
+
+  // This is just a button to wipe firebase clean
+  // $('#deleteall1').on('click', function(){
+  //   database.ref().remove();
+
+  //   return false;
+  // });
