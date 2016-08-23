@@ -151,10 +151,20 @@
 
 	var database = firebase.database();
 
+	database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+		
+		var playerName = snapshot.val().playerName;
+		var score = snapshot.val().score;
+
+		$('#leaderboardTable > tbody').append(
+			'<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+		);
+
+		// return "meow";
+
+	});
 
 	$('#sort1a').on('click', function(){
-
-		// $('#leaderboardTable > tbody').remove();
 		
 		var playerName = $('#playerNameInput1').val().trim();
 		var score = parseInt($('#scoreInput1').val().trim());
@@ -165,32 +175,37 @@
 			scoreInverse : -score
 		});
 
-		reload();
+		$('#leaderboardTable > tbody').empty();
+
+		database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
+			
+			var playerName = childSnapshot.val().playerName;
+			var score = childSnapshot.val().score;
+
+			$('#leaderboardTable > tbody').append(
+				'<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+			);
+
+			// return "meow";
+
+		});
+
+		// reload();
 
 		return false;
 	});
 
 
-	database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
-		
-		var playerName = childSnapshot.val().playerName;
-		var score = childSnapshot.val().score;
 
-		$('#leaderboardTable > tbody').append(
-			'<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
-		);
-
-		return "meow";
-
-	}).then(function(result){
-		console.log(result);
-	});
+	// }).then(function(result){
+	// 	console.log(result);
+	// });
 
 	// This is just a button to wipe firebase clean
 	$('#deleteall1').on('click', function(){
 		database.ref().remove();
-		return false;
 
+		return false;
 	});
 
 	</script>

@@ -151,15 +151,14 @@
 
 	var database = firebase.database();
 
+	// assign an array empty for sorting later
 	var dbArray = [];
 
-
+	// On webpage load, get a snapshot of all added object data and display them in descending order
+	// to the empty leaderboard table
 	database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
 
-		// // puts snapshot of firebase to an array
-		// dbArray.push(snapshot.val());
-		// console.log('snapshot')
-
+		// assign variable for property snapshot
 		playerName = snapshot.val().playerName;
 		score = snapshot.val().score;
 
@@ -170,24 +169,31 @@
 
 	});
 
-	function sortLeaderBoard (leaderBoard)  {
+	// This function when called will sort dbArray by the score, empty the leaderboard table
+	// and add each object within the array to the leaderboard
+	// function sortLeaderBoard(leaderBoard) {
 
+	// 	// sort the array in the descending order by score property
+	// 	var sortedLeaderBoard = dbArray.sort(function(a, b) {
+	// 		return a.score - b.score;
+	// 	});
 
-		// sort the array in the ascending order
-		var sortedLeaderBoard = dbArray.sort(function(a, b) {
-			return a.score - b.score;
-		});
+	// 	// clear the leaderboard table
+	// 	$('#leaderboardTable > tbody').empty();
 
-		$('#leaderboardTable > tbody').empty();
-		sortedLeaderBoard.forEach(function(item) {
-			$("#leaderboardTable > tbody").append(
-				"<tr><td>" + item.playerName + "</td><td>" + item.score + "</td></tr>"
-			);			
-		});
+	// 	// add each object in the array to the leaderboard table
+	// 	sortedLeaderBoard.forEach(function(item) {
+	// 		$("#leaderboardTable > tbody").append(
+	// 			"<tr><td>" + item.playerName + "</td><td>" + item.score + "</td></tr>"
+	// 		);			
+	// 	});
 
-		console.log('sorted', sortedLeaderBoard);
-	};
+	// 	console.log('sorted', sortedLeaderBoard);
 
+	// };
+
+	// This function when called will update the firebase with new player result call
+	// the addPlayerResult function
 	function updateLeaderBoard() {
 
 		var playerName = $('#playerNameInput1').val().trim();
@@ -208,24 +214,21 @@
 	function addPlayerResult(name, score) {
 
 		var sorted = [];
+
 		database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
 
-		// // puts snapshot of firebase to an array
-		// dbArray.push(snapshot.val());
-		// console.log('snapshot')
+			playerName = snapshot.val().playerName;
+			score = snapshot.val().score;
 
-		playerName = snapshot.val().playerName;
-		score = snapshot.val().score;
-
-		sorted.push(snapshot.val())
-
-		//$('#leaderboardTable > tbody').remove();
-
+			sorted.push(snapshot.val())
 
 		});	
 		console.log(sorted, 'sorted')
+
+
 		$('#leaderboardTable > tbody').empty()
-				// adding new table rows and displaying firebase data
+
+		// adding new table rows and displaying each firebase object by the 2 properties
 		sorted.forEach(function(item) {
 			$("#leaderboardTable > tbody").append(
 				"<tr><td>" + item.playerName + "</td><td>" + item.score + "</td></tr>"
@@ -236,18 +239,8 @@
 
 	$('#sort1a').on('click', function(){
 
-
-		// $('#leaderboardTable > tbody').remove();
-
 		//sortLeaderBoard(dbArray)
 		updateLeaderBoard();
-	
-
-
-		
-		//reload();
-
-
 
 		return false;
 	});
@@ -257,7 +250,8 @@
 
 	// This is just a button to wipe firebase clean
 	$('#deleteall1').on('click', function(){
-		//database.ref().remove();
+		
+		database.ref().remove();
 
 		return false;
 
