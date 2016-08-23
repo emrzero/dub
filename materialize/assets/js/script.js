@@ -1,4 +1,9 @@
 
+
+//-----------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------//
+
 var characters = {
     thor: {
       Team: 'Avengers',
@@ -105,10 +110,10 @@ var characters = {
       //$('#here').append("Question " + (pos+1) + " of " + characters.length);
 
       answer = characters[computerGuess];
-      $('#here').html("Guess the character that has meets the following criteria: ");
-      $('#hintText').html("<div>" + charHints[hintCounter] + "</div>");
-      $('#playerScore').html("Current Score: " + playerScore);
-      $('#questionScore').html("This question is worth: " + questionScore);
+      // $('#here').html("Guess the character that has meets the following criteria: ");
+      // $('#hintText').html("<div>" + charHints[hintCounter] + "</div>");
+      // $('#playerScore').html("Current Score: " + playerScore);
+      // $('#questionScore').html("This question is worth: " + questionScore);
 
     // });
   };
@@ -119,7 +124,7 @@ var characters = {
 
 var game = {
   playerName: "",
-  hp: 10
+  hp: 15
 }
 
 
@@ -184,9 +189,11 @@ $(document).on('click','#getHints', function(){
     var newBlock = $('<blockquote>');
     newBlock.text(charHints[hintCounter]);
     // newLi.append(newBlock);
-
-    if (hintCounter >= 4){
-      alert("You cannot take anymore hints! You must guess a character.")
+    if (game.hp == 1) {
+      alert("You cannot take anymore hints or you will run out of HP!");
+      return false;
+    } else if (hintCounter >= 5) {
+      alert("You cannot take anymore hints! You must guess a character.");
       return false;
     }
     else {
@@ -203,22 +210,23 @@ $(document).on('click', '.character', function(){
   var userGuess = $(this).attr('id');
 
   if (userGuess == callbackParam) {
-    alert("Correct!")
+    $('#hints').html("Correct!")
     
-    // playerScore += questionScore;
+    game.hp += 10;
+    $('#hp').text(game.hp);
     // $('#playerScore').html("Current Score: " + playerScore);
     charactersGame.splice(computerNumber, 1);
     charactersChosen.splice(computerNumber, 1);
     if (charactersLeft > 1) {
       charactersLeft--;
+      $('#charactersCorrect').html("Characters Remaining: " + charactersLeft);
       reset();
     } else {
-      alert("No more characters!");
-      $('#here').html("Congratulations!");
-      $('#hintText').html("<div>Your final score is: " + playerScore + "</div>");
-      $('#playerScore').html("");
-      $('#questionScore').html("");
-      return false;
+      $('#hints').html("Congratulations! Your final score is: " + game.hp).show('slow');
+      // $('#hintText').html("<div>Your final score is: " + playerScore + "</div>");
+      // $('#playerScore').html("");
+      // $('#questionScore').html("");
+      location.reload();
       // charactersGame.splice(computerNumber, 1);
       // charactersChosen.splice(computerNumber, 1);
       // console.log("characters Game: " + charactersGame);
@@ -229,7 +237,6 @@ $(document).on('click', '.character', function(){
   }
 
     else {
-    alert("Wrong!");
     game.hp--;
     // hint();
   }
@@ -254,11 +261,11 @@ function reset() {
   hintCounter = 0;
   questionScore = 5;
   charHints = [];
-  $('#hintsContainer').empty();
+  $('#hints').empty();
   //number = Math.floor(Math.random()*charactersGame.length);
   //computerNumber = number;
   //computerGuess = charactersGame[number];
-  answer = "";
+  //answer = "";
   /*console.log(computerGuess);
   for (key in characters[computerGuess]){
     charHints.push(key + " : "+ characters[computerGuess][key]);
