@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Leaderboard OrderByChild Way</title>
+	<title>Leaderboard ForEach Way</title>
 	<!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
 	<!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
 	<!-- Browser tab icon
@@ -103,8 +103,8 @@
 
 						<button type="submit" class="btn btn-primary" id="sort1a">Sort1a</button>
 
-<!-- 						<button type="submit" class="btn btn-primary" id="set2">Set2</button> -->
-
+<!-- 						<button type="submit" class="btn btn-primary" id="set2">Set2</button>
+ -->
 						<button type="submit" class="btn btn-primary" id="deleteall1">DeleteAll1</button>
 
 					</form>
@@ -151,10 +151,56 @@
 
 	var database = firebase.database();
 
+	var dbArray = [];
+
+
+	database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+
+		// // puts snapshot of firebase to an array
+		// dbArray.push(snapshot.val());
+		// console.log('snapshot')
+
+		playerName = snapshot.val().playerName;
+		score = snapshot.val().score;
+
+		// adding new table rows and displaying firebase data
+		$("#leaderboardTable > tbody").append(
+			"<tr><td>" + playerName + "</td><td>" + score + "</td></tr>"
+		);
+
+	});
+
+	function sortLeaderBoard (leaderBoard)  {
+
+
+		// sort the array in the ascending order
+		var sortedLeaderBoard = dbArray.sort(function(a, b) {
+			return a.score - b.score;
+		});
+
+		$('#leaderboardTable > tbody').empty();
+		sortedLeaderBoard.forEach(function(item) {
+			$("#leaderboardTable > tbody").append(
+				"<tr><td>" + item.playerName + "</td><td>" + item.score + "</td></tr>"
+			);			
+		});
+
+		console.log('sorted', sortedLeaderBoard);
+	};
+
+	function sortUpdatedLeaderBoard() {
+			database.ref().on('child_changed', function (snapshot) {
+				console.log('snapshot from child_changed', snapshot.val())
+			})		
+	};
+
 
 	$('#sort1a').on('click', function(){
 
+
 		// $('#leaderboardTable > tbody').remove();
+
+		sortLeaderBoard(dbArray)
 		
 		var playerName = $('#playerNameInput1').val().trim();
 		var score = parseInt($('#scoreInput1').val().trim());
@@ -163,32 +209,26 @@
 			playerName : playerName,
 			score : score,
 			scoreInverse : -score
+		}, function() {
+			sortUpdatedLeaderBoard()
 		});
 
-		reload();
+
+		
+		//reload();
+
+
 
 		return false;
 	});
 
 
-	database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
-		
-		var playerName = childSnapshot.val().playerName;
-		var score = childSnapshot.val().score;
 
-		$('#leaderboardTable > tbody').append(
-			'<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
-		);
-
-		return "meow";
-
-	}).then(function(result){
-		console.log(result);
-	});
 
 	// This is just a button to wipe firebase clean
 	$('#deleteall1').on('click', function(){
 		database.ref().remove();
+
 		return false;
 
 	});
@@ -200,51 +240,19 @@
 
 </html>
 
-<!-- 	// var dbArray = [];
 
-	// database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot, prevChildKey){
+<!-- 
+	database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
 
-	// database.ref().on('child_added', function(snapshot, prevChildKey){
+		var playerName = childSnapshot.val().playerName;
+		var score = childSnapshot.val().score;
 
-		// puts snapshot of firebase to an array
-		// dbArray.push(snapshot.val());
-
-		// var newArr = dbArray.sort(function(a, b) {
-		// 	return a.score - b.score;
-		// });
-
-		// 	console.log(newArr);
-		// 	console.log('__________________________')
-
-		// function scoreBoard(arr) {
-		// 	arr.forEach(function(item, index, arr) {
-		// 		console.log('item', playerName.playerName);
-
-			// $("#leaderboardTable > tbody").html(
-			// "<tr><td>" + playerName + "</td><td>" + score + "</td></tr>"
-			// );
-		// 	});
-
-		// };
-
-		// scoreBoard(newArr);
+		$('#leaderboardTable > tbody').append(
+			'<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+		);
 
 
-			// Player Info
-			// console.log(playerName);
-			// console.log(score);
-
-		// $('#leaderboardTable > tbody').empty();
-
-		// adding new table container and displaying firebase sorted data
-		// $("#leaderboardTable > tbody").append(
-		// 	"<tr><td>" + playerName + "</td><td>" + score + "</td></tr>"
-		// );
-
-	// });
-
-
-	// console.log('db array', dbArray) -->
+	}); -->
 
 
 <!-- 	// $('#update1a').on('click', function(){

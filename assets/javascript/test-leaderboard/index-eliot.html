@@ -165,33 +165,38 @@
 			scoreInverse : -score
 		});
 
-		reload();
+		// reload();
+		setTimeout(retrieveSorted, 4000);
 
 		return false;
 	});
 
 
-	database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
-		
-		var playerName = childSnapshot.val().playerName;
-		var score = childSnapshot.val().score;
+	// database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
+	// 	setTimeout(retrieveSorted, 2000);
+	// 	// var playerName = childSnapshot.val().playerName;
+	// 	// var score = childSnapshot.val().score;
 
-		$('#leaderboardTable > tbody').append(
-			'<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
-		);
+	// 	// $('#leaderboardTable > tbody').append(
+	// 	// 	'<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+	// 	// );
 
-		return "meow";
 
-	}).then(function(result){
-		console.log(result);
-	});
+	// });
 
-	// This is just a button to wipe firebase clean
-	$('#deleteall1').on('click', function(){
+		// This is just a button to wipe firebase clean
+		$('#deleteall1').on('click', function(){
 		database.ref().remove();
 		return false;
 
 	});
+
+		function retrieveSorted(){
+			database.ref().orderByChild('scoreInverse').once('value').then(function(snap){
+				console.log(snap.val());
+			});
+		}
+
 
 	</script>
 
