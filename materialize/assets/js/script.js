@@ -272,7 +272,7 @@ $(document).on('click', '.character', function(){
       // $('#leaderboardTable > tbody').empty();
       // $('#leaderBoard').empty();
 
-      database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+      database.ref().orderByChild('scoreInverse').limitToFirst(5).on('child_added', function(snapshot){
         
 
 
