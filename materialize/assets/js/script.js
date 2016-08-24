@@ -4,6 +4,26 @@
 //-----------------------------------------------------------------------------------//
 //-----------------------------------------------------------------------------------//
 
+
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBmrX91JJuF622wDzsKchjw6ObaBdC0nLs",
+  authDomain: "dub-marvel.firebaseapp.com",
+  databaseURL: "https://dub-marvel.firebaseio.com",
+  storageBucket: "dub-marvel.appspot.com",
+};
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+// // kent testing firebase
+// database.ref().set({
+//   playerName : 'Kent',
+//   score : 15,
+//   scoreInverse : -15
+// });
+
 var characters = {
     thor: {
       Team: 'Avengers',
@@ -125,7 +145,7 @@ var characters = {
 var game = {
   playerName: "",
   hp: 15
-}
+};
 
 
 $('#questionContainer').hide();
@@ -228,18 +248,44 @@ $(document).on('click', '.character', function(){
       // $('#hintText').html("<div>Your final score is: " + playerScore + "</div>");
       // $('#playerScore').html("");
       // $('#questionScore').html("");
-      location.reload();
+      // location.reload();
       // charactersGame.splice(computerNumber, 1);
       // charactersChosen.splice(computerNumber, 1);
       // console.log("characters Game: " + charactersGame);
       // console.log("characters Chosen: " + charactersChosen);
+
+      var playerName = game.playerName;
+      var score = game.hp;
+      // console.log('hp', game.hp);
+      // console.log('name', playerName);
+      // console.log(database.ref());
+
+      database.ref(playerName).set({
+        playerName : playerName,
+        score : score,
+        scoreInverse : -score
+      });
+
+      $('#leaderboardTable > tbody').empty();
+
+      database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
+        
+        var playerName = childSnapshot.val().playerName;
+        var score = childSnapshot.val().score;
+
+        $('#leaderboardTable > tbody').append(
+          '<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+        );
+
+      });
+
     }
     
 
   }
 
     else {
-      alert("Wrong!")
+      alert("Wrong!");
     game.hp--;
     // hint();
   }
@@ -286,6 +332,8 @@ function reset() {
   });*/
   gameInitialize();
 };
+
+
 
 //-----------------------------------------------------------------------------------------//
 //-----------------------------------------------------------------------------------------//
