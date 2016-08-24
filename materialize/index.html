@@ -20,7 +20,7 @@
 
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 
-
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
           
 </head>
 <body>
@@ -142,6 +142,32 @@
 
 </div>
 
+  <div class="row" id="beginningContainer">
+    <div class="col hide-on-small-only m2">
+    </div>
+    <div class="col s12 m8" id="firstHint">
+      <!-- <ul id="hints" class="collection"> -->
+<!--         <li>Hint</li>
+        <li>Hint</li>
+        <li>Hint</li>
+        <li>Hint</li> -->
+      <!-- </ul> -->
+    </div>
+  </div>
+
+  <div class="row" id="message">
+    <div class="col hide-on-small-only m2">
+    </div>
+    <div class="col s12 m8" id="action">
+      <!-- <ul id="hints" class="collection"> -->
+<!--         <li>Hint</li>
+        <li>Hint</li>
+        <li>Hint</li>
+        <li>Hint</li> -->
+      <!-- </ul> -->
+    </div>
+  </div>
+
   <div class="row" id="hintsContainer">
     <div class="col hide-on-small-only m2">
     </div>
@@ -153,14 +179,15 @@
         <li>Hint</li> -->
       <!-- </ul> -->
     </div>
-    <div class="col hide-on-small-only m2" id="charactersCorrect">
+  </div>
+  <div class="row" id="hintsContainer">
+    <div class="col hide-on-small-only m2">
     </div>
+      <div class="col s12 m8" id="charactersCorrect">
+      </div>
   </div>
 </div>
 
-</div> 
-
-<!--   End Questions -->
 
 <!-- Main Leader Board -->
 <div class="container" id="mainLeaderBoardContainer">
@@ -168,39 +195,48 @@
     <div class="col s1 m2 l2">
     </div>
     <div class="col s10 m8 l8">
-      <table class="responsive-table centered hightlight">
+     <section class="sidebar">
+    <div id="">
+     <header><span class= "leader">leader board<span></header> 
+    <h2></h2>
+        <table class="table" id="leaderboardTable">
+        <div class= "table">
         <thead>
-          <th>Name</th>
-          <th>Score</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Kent</td>
-            <td>345</td>
-          </tr>
-          <tr>
-            <td>Victor</td>
-            <td>234</td>
-          </tr>
-          <tr>
-            <td>Josh</td>
-            <td>123</td>
-          </tr>
-          <tr>
-            <td>Brian</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>Eliot</td>
-            <td>34</td>
-          </tr>
-        </tbody>
-      </table>
+              
+                <th>Player Name</th>
+                <th>High Score</th>
+              
+            </thead>
+            </div>
+            <tbody>
+            <!-- <tr><td>ekt</td><td>123</td></tr>
+            <tr><td>ekt</td><td>123</td></tr>
+            <tr><td>ekt</td><td>123</td></tr> -->
+
+
+
+
+
+
+            </tbody>
+          
+        </table>
+      </section> 
+
+               
     </div>
     <div class="col s1 m2 l2">
     </div>
   </div>
-</div>
+</div> <!-- End Leader Board -->
+
+
+
+
+</div> <!-- End page wrapper -->
+
+<!--   End Questions -->
+
 
  <!-- Footer: Small Leader Board -->
 <div class="container site-footer hide-on-small-only" id="leaderBoardContainer">
@@ -209,11 +245,11 @@
 
       <ul id="leaderBoard">
         <li>Leader Board</li>
-        <li> Kent: 345</li>
+<!--         <li> Kent: 345</li>
         <li> Victor: 234</li>
         <li> Josh: 123</li>
         <li> Brian: 94</li>
-        <li> Eliot: 34</li>
+        <li> Eliot: 34</li> -->
         <!-- <li><button class="btn" id="seeLeaderBoard">See more</button></li> -->
       </ul>
     </div>

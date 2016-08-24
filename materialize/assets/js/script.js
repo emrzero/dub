@@ -1,44 +1,73 @@
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBmrX91JJuF622wDzsKchjw6ObaBdC0nLs",
+  authDomain: "dub-marvel.firebaseapp.com",
+  databaseURL: "https://dub-marvel.firebaseio.com",
+  storageBucket: "dub-marvel.appspot.com",
+};
 
+firebase.initializeApp(config);
+
+var database = firebase.database();
 
 //-----------------------------------------------------------------------------------//
 //-----------------------------------------------------------------------------------//
 //-----------------------------------------------------------------------------------//
 
+//Characters
 var characters = {
     thor: {
-      Team: 'Avengers',
       Origin: 'Asgard',
       Archnemesis: 'Loki',
       Power: 'Mjolnir',
-      Alias: 'Thor Odinson'
+      Alias: 'Thor Odinson',
+      Actor: 'Chris Hemsworth'
     },
     ironman: {
-      Team: 'Avengers',
       Origin: 'Long Island',
       Archnemesis: 'Obadiah Stone',
       Power: 'Powered Armor Suit',
-      Alias: 'Tony Stark'
+      Alias: 'Tony Stark',
+      Actor: 'Robert Downey Jr.'
     },
     captainamerica: {
-      Team: 'Avengers',
       Origin: 'Manhattan',
       Archnemesis: 'Baron Zemo',
       Power: 'Vibranium-Steel Alloy Shield',
-      Alias: 'Steve Rodgers'
+      Alias: 'Steve Rodgers',
+      Actor: 'Chris Evans'
     },
     blackwidow: {
-      Team: 'Avengers',
       Origin: 'Stalingrad',
       Archnemesis: 'Black Lotus',
       Power: 'Widow\'s Bite',
-      Alias: 'Natasha Romanova'
+      Alias: 'Natasha Romanova',
+      Actor: 'Scarlett Johansson'
     },
     spiderman: {
-      Team: 'Avengers',
       Origin: 'Queens',
       Archnemesis: 'Doctor Octopus',
       Power: 'Spider-Sense',
-      Alias: 'Peter Parker'
+      Alias: 'Peter Parker',
+      Actor: 'Andrew Garfield'
+    },
+  };
+
+  var charactersHint = {
+    thor: {
+      Movie: 'Last Movie: 2013'
+    },
+    ironman: {
+      Movie: 'Last Movie: 2013'
+    },
+    captainamerica: {
+      Movie: 'Last Movie: 2016'
+    },
+    spiderman: {
+      Movie: 'Last Movie: 2014'
+    },
+    blackwidow: {
+      Movie: 'Last Movie: None'
     },
   };
 
@@ -54,6 +83,7 @@ var characters = {
   var computerGuess;
   var number;
   var charactersLeft = 5;
+  var oneHint = [];
 
   function gameInitialize() {
 
@@ -70,6 +100,10 @@ var characters = {
 
     for (key in characters[computerGuess]){
       charHints.push(key + " : "+ characters[computerGuess][key]);
+    }
+
+    for (key in charactersHint[computerGuess]){
+      oneHint.push(charactersHint[computerGuess][key]);
     }
     //console.log(characters.computerGuess.Team);
 
@@ -104,7 +138,13 @@ var characters = {
       //$('#here').append("<img src=" + thumbnail + "." + path + " height=" + "200" +  " width=" + "200" + " id=" + "character" + ">");
       //$('#here').append("Question " + (pos+1) + " of " + characters.length);
 
-      answer = characters[computerGuess];
+    answer = characters[computerGuess];
+
+    if (charactersLeft == 5) {
+      $('#firstHint').text("");
+    } else {
+      $('#firstHint').text(oneHint[0]);
+    };
   };
 
 //-----------------------------------------------------------------------------------------//
@@ -150,6 +190,11 @@ $('#submit').on('click', function(){
   setTimeout(function(){
     $('#leaderBoardContainer').show('slow');
   }, 6000);
+
+  setTimeout(function(){
+    $('#firstHint').text(oneHint[0]).show('slow');
+  }, 6000);
+  
 });
 // function begin(){
 //   alert("let's begin");
@@ -158,6 +203,7 @@ $('#wolverine').hide();
 setTimeout(function(){
   $('#wolverine').show('slow');
 }, 1000);
+
 
 // setTimeout($('#wolverine').toggle('right'), 2000);
 
@@ -179,17 +225,16 @@ $(document).on('click','#getHints', function(){
     newBlock.text(charHints[hintCounter]);
     // newLi.append(newBlock);
     if (game.hp == 1) {
-      alert("You cannot take anymore hints or you will run out of HP!");
+      $('#action').html("You cannot take anymore hints or you will run out of HP!").show('slow');
       return false;
     } else if (hintCounter >= 5) {
-      alert("You cannot take anymore hints! You must guess a character.");
+      $('#action').html("You cannot take anymore hints! You must guess a character.").show('slow');
       return false;
     }
     else {
       hintCounter++;
       $('#hints').append(newBlock).show('slow');
       game.hp--;
-
       $('#hp').text(game.hp);
     }
 });
@@ -199,8 +244,8 @@ $(document).on('click', '.character', function(){
   var userGuess = $(this).attr('id');
 
   if (userGuess == callbackParam) {
-    alert("Correct");
-    game.hp += 10;
+    $('#action').html("Correct!").show('slow');
+    game.hp += 2;
     $('#hp').text(game.hp);
 
     correctGif();
@@ -212,16 +257,53 @@ $(document).on('click', '.character', function(){
       $('#charactersCorrect').html("Characters Remaining: " + charactersLeft);
       reset();
     } else {
-      $('#hints').html("Congratulations! Your final score is: " + game.hp).show('slow');
-      location.reload();
-    }
-    
+      $('#action').html("Congratulations! Your final score is: " + game.hp).show('slow');
 
+      $('#leaderBoardContainer').show();
+      var lb = $('#mainLeaderBoardContainer').show();
+
+      var playerName = game.playerName;
+      var score = game.hp;
+      // console.log('hp', game.hp);
+      // console.log('name', playerName);
+      // console.log(database.ref());
+
+      database.ref(playerName).update({
+        playerName : playerName,
+        score : score,
+        scoreInverse : -score
+      });
+
+      // $('#leaderboardTable > tbody').empty();
+      // $('#leaderBoard').empty();
+
+      database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+        
+
+
+        var playerName = snapshot.val().playerName;
+        var score = snapshot.val().score;
+          console.log('name', playerName);
+          console.log('score', score);
+
+
+        $('#leaderboardTable > tbody').append(
+          '<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+        );
+
+        $('#leaderBoard').append(
+          '<li>' + playerName + ': </li><li>' + score + '</li>'
+        );
+
+      });
+      location.reload();
+    } 
   }
 
     else {
-    alert("Wrong");
+    $('#action').html("Wrong! Guess again").show('slow');
     game.hp--;
+    $('#hp').text(game.hp);
   }
        
 });
@@ -230,16 +312,17 @@ function reset() {
   hintCounter = 0;
   questionScore = 5;
   charHints = [];
+  oneHint = [];
   $('#hints').empty();
-
+  $('#firstHint').text(oneHint[0]).show('slow');
   gameInitialize();
 };
 
 function correctGif(){
-  alert("here");
 
   var celebration = "celebration";
-  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + celebration + "&api_key=dc6zaTOxFJmzC&limit=1";
+  var limitCount = charactersLeft;
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + celebration + "&api_key=dc6zaTOxFJmzC&limit=5";
 
   $.ajax({
     url: queryURL,
@@ -247,7 +330,7 @@ function correctGif(){
   })
   .done(function(response) {
 
-    var results = response.data[0];
+    var results = response.data[charactersLeft];
     console.log(response);
 
     var celebrationDiv = $('<div>');
@@ -259,9 +342,28 @@ function correctGif(){
     celebrationDiv.append(celebrationGif);
       
     $('#hints').prepend(celebrationDiv);
-    alert("Here");
   });
 };
+
+database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+  
+  $('#leaderBoardContainer > tbody').empty();
+  // $('#leaderBoard').empty()
+  $('#leaderBoardContainer').show();
+  var lb = $('#mainLeaderBoardContainer').show();
+
+  var playerName = snapshot.val().playerName;
+  var score = snapshot.val().score;
+
+  $('#leaderboardTable > tbody').append(
+    '<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+  );
+
+  $('#leaderBoard').append(
+    '<li> ' + playerName + ': </li><li>' + score + '</li>'
+  );
+
+});
 
 //-----------------------------------------------------------------------------------------//
 //-----------------------------------------------------------------------------------------//
