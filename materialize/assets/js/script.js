@@ -1,9 +1,9 @@
 // Initialize Firebase
 var config = {
-    apiKey: "AIzaSyCBIQ0gzyvDA8GRGDYMAQAO6Jq5tovTc6M",
-    authDomain: "fir-practice-efcb4.firebaseapp.com",
-    databaseURL: "https://fir-practice-efcb4.firebaseio.com",
-    storageBucket: "",
+  apiKey: "AIzaSyBmrX91JJuF622wDzsKchjw6ObaBdC0nLs",
+  authDomain: "dub-marvel.firebaseapp.com",
+  databaseURL: "https://dub-marvel.firebaseio.com",
+  storageBucket: "dub-marvel.appspot.com",
 };
 
 firebase.initializeApp(config);
@@ -88,6 +88,11 @@ $(document).on('click','#getHints', function(){
 // leaderboard code from Kent
 database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
   
+  $('#leaderBoardContainer > tbody').empty();
+  // $('#leaderBoard').empty()
+  $('#leaderBoardContainer').show();
+  var lb = $('#mainLeaderBoardContainer').show();
+
   var playerName = snapshot.val().playerName;
   var score = snapshot.val().score;
 
@@ -95,35 +100,45 @@ database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot)
     '<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
   );
 
+  $('#leaderBoard').append(
+    '<li> ' + playerName + ': </li><li>' + score + '</li>'
+  );
+
 });
 
 
-$('#sort1a').on('click', function(){
+// function showLeaderboard(){
+
+//   var lb = $('#mainLeaderBoardContainer').show();
+//   $('#leaderBoardContainer').show();
   
-  var playerName = $('#playerNameInput1').val().trim();
-  var score = parseInt($('#scoreInput1').val().trim());
+//   var playerName = game.playerName;
+//   var score = game.hp;
 
-  database.ref(playerName).update({
-    playerName : playerName,
-    score : score,
-    scoreInverse : -score
-  });
+//   database.ref(playerName).update({
+//     playerName : playerName,
+//     score : score,
+//     scoreInverse : -score
+//   });
 
-  $('#leaderboardTable > tbody').empty();
+//   // $('#leaderboardTable > tbody').empty();
 
-  database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
+//   database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
     
-    var playerName = childSnapshot.val().playerName;
-    var score = childSnapshot.val().score;
+//     var playerName = childSnapshot.val().playerName;
+//     var score = childSnapshot.val().score;
 
-    $('#leaderboardTable > tbody').append(
-      '<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
-    );
+//     $('#leaderboardTable > tbody').append(
+//       '<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+//     );
 
-  });
+//   });
 
-  return false;
-});
+//   // return false;
+  
+//   };
+
+  // showLeaderboard();
 
 
   // This is just a button to wipe firebase clean
