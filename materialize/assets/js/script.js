@@ -254,27 +254,40 @@ $(document).on('click', '.character', function(){
       // console.log("characters Game: " + charactersGame);
       // console.log("characters Chosen: " + charactersChosen);
 
+      $('#leaderBoardContainer').show();
+      var lb = $('#mainLeaderBoardContainer').show();
+
       var playerName = game.playerName;
       var score = game.hp;
       // console.log('hp', game.hp);
       // console.log('name', playerName);
       // console.log(database.ref());
 
-      database.ref(playerName).set({
+      database.ref(playerName).update({
         playerName : playerName,
         score : score,
         scoreInverse : -score
       });
 
-      $('#leaderboardTable > tbody').empty();
+      // $('#leaderboardTable > tbody').empty();
+      // $('#leaderBoard').empty();
 
-      database.ref().orderByChild('scoreInverse').on('child_added', function(childSnapshot, prevChildKey){
+      database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
         
-        var playerName = childSnapshot.val().playerName;
-        var score = childSnapshot.val().score;
+
+
+        var playerName = snapshot.val().playerName;
+        var score = snapshot.val().score;
+          console.log('name', playerName);
+          console.log('score', score);
+
 
         $('#leaderboardTable > tbody').append(
           '<tr><td>' + playerName + '</td><td>' + score + '</td></tr>'
+        );
+
+        $('#leaderBoard').append(
+          '<li>' + playerName + ': </li><li>' + score + '</li>'
         );
 
       });
