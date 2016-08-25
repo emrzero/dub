@@ -79,38 +79,35 @@
 
 		// 	console.log('audio', audio)
     	
-  //   	audio.play();
+  		//  audio.play();
 
 		// Pseudo 04: figure out if possible to do multi-characters property in the audioClip object
 
-		// hard code character which in the game logic would be already randomized
-		var character = 'ironman';
-		var sourceHeader = 'audioClips.';
+		// hard code character which in the game logic would be already randomized based on Brian's code of characterChoen character order.
+		var answer = "";
+		var charactersChosen = ["thor", "captainamerica", "ironman", "spiderman", "blackwidow"];
+		var number = Math.floor(Math.random()*charactersChosen.length);
 
-		audioClips = {
-			ironman: ['../media/ironman-Im-gonna-go-buy-you-some-time.mp3',
+		// The whole thing about this array is that since the game logic is already based on an array of game characters which are indexed, the same randomizing number could be used to call the audioClip array as long as it has the same order.
+		audioClips = [
+			thor = ['../media/ironman-Im-just-not-the-hero-type-Clearly.mp3', '../media/This-is-wonderful.mp3', '../media/ironman-laughing-nervously.mp3'],
+			captainamerica = ['../media/ironman-Im-gonna-go-buy-you-some-time.mp3',
 			'../media/ironman-No-Uhuh-Uhuh-Uh.mp3',
 			'../media/What-you-need-is-time-to-get-your-mind-right.mp3'],
-			thor: ['../media/ironman-Im-just-not-the-hero-type-Clearly.mp3', '../media/This-is-wonderful.mp3', '../media/ironman-laughing-nervously.mp3']
-		};
+			ironman = ['../media/ironman-Im-just-not-the-hero-type-Clearly.mp3', '../media/This-is-wonderful.mp3', '../media/ironman-laughing-nervously.mp3'],
+			spiderman = ['../media/ironman-Im-just-not-the-hero-type-Clearly.mp3', '../media/This-is-wonderful.mp3', '../media/ironman-laughing-nervously.mp3'],
+			blackwidow = ['../media/ironman-Im-just-not-the-hero-type-Clearly.mp3', '../media/This-is-wonderful.mp3', '../media/ironman-laughing-nervously.mp3'],
+		];
 
-			console.log('audioClips', audioClips.thor[0])
-
-		var firstpart = 'audioClips.' + character;
+			console.log('audioClips', audioClips[1])
 
 		// randomize number 0 to 2 as corresponding with index numbers
 		randomAudio = Math.floor(Math.random() * 3);
 
 			console.log('randomNumber', randomAudio)
 
-		// thought about but never tried knowing I need to break out the parts because I don't even know if I could do each part right
-		// var randomAudio = function(){
-		// 	'../media/ironman-No-Uhuh-Uhuh-Uh.mp3';
-		// };
-		// var sourceLocation = 'audioClips.' + character + '[' + randomAudio + ']';
-		// 	console.log('sourceLocation', sourceLocation)
-
-		var audio = new Audio(src = firstpart[randomAudio]);
+		// the source is conditional on characterGame index number and then randomAudio index number
+		var audio = new Audio(src = audioClips[number][randomAudio]);
 
 			console.log('audio', audio)
     	
