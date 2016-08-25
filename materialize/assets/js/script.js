@@ -343,7 +343,10 @@ function correctGif(){
       
     $('#hints').prepend(celebrationDiv);
 
+    // Game media feedback: audio clip sound effect - by Kent
     // var audio = new Audio('https://p.scdn.co/mp3-preview/ed5a443bc86176135ebca8a114f66f4d814d4c90');
+    
+    randomAudio = Math.floor(Math.random() * 3) + 1;
     var audio = new Audio(src = 'assets/media/ironman-No-Uhuh-Uhuh-Uh.mp3');
     audio.play();    
   });
