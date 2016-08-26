@@ -73,6 +73,7 @@ blockquote {
     display: inline-block;
 }
     #leaderBoard > li {
+       
         display: inline-block;
         margin: 0 10px;
         font-size: 1.2em;
