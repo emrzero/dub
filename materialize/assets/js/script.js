@@ -345,10 +345,29 @@ function correctGif(){
 
     // Game media feedback: audio clip sound effect - by Kent
     // var audio = new Audio('https://p.scdn.co/mp3-preview/ed5a443bc86176135ebca8a114f66f4d814d4c90');
+    // var audio = new Audio(src = 'assets/media/thor-Its-unwise-to-be-in-my-company-right-now-Brother.mp3');
     
-    randomAudio = Math.floor(Math.random() * 3) + 1;
-    var audio = new Audio(src = 'assets/media/ironman-No-Uhuh-Uhuh-Uh.mp3');
-    audio.play();    
+    characterClips = [
+      thor = ['assets/media/thor-Its-unwise-to-be-in-my-company-right-now-Brother.mp3', 'assets/media/thor-This-drink-I-like-it-I-know-Its-great-right-Another!.mp3'],
+      captainamerica = ['assets/media/captainamerica-I-can-do-this-all-day.mp3',
+      'assets/media/captainamerica-You-and-me-we-stay-here-on-the-ground.mp3'],
+      ironman = ['assets/media/ironman-Im-just-not-the-hero-type-Clearly.mp3', 'assets/media/ironman-Im-just-not-the-hero-type-Clearly.mp3'],
+      spiderman = ['assets/media/spiderman-Im-just-Peter-Parker.mp3', 'assets/media/spiderman-Im-SpiderMan.mp3'],
+      blackwidow = ['assets/media/blackwidow-You-really-think-Im-pretty.mp3', 'assets/media/blackwidow-You-really-think-Im-pretty.mp3']
+    ];
+      console.log('audioClips', characterClips[number])
+
+    // randomize number 0 to 2 as corresponding with index numbers
+    randomAudio = Math.floor(Math.random() * 2);
+      console.log('randomAudio', randomAudio)
+
+    // the source is conditional on characterGame index number and then randomAudio index number
+    var audio = new Audio(src = characterClips[number][randomAudio]);
+      console.log('audio', audio)
+      
+
+
+      audio.play();
   });
 };
 
