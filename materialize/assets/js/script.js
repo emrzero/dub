@@ -657,7 +657,7 @@ function correctAnswer() {
   }
 };
 
-database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+database.ref().orderByChild('scoreInverse').limitToFirst(5).on('child_added', function(snapshot){
   
   $('#leaderBoardContainer > tbody').empty();
   // $('#leaderBoard').empty()
