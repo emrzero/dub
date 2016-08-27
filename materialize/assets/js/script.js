@@ -711,7 +711,7 @@ function correctAnswer() {
 
   var h = MD5(unix + privateAPIkey + publicAPIkey);
 
-  var apiURL = 'http://gateway.marvel.com:80/v1/public/characters';
+  var apiURL = 'https://gateway.marvel.com:80/v1/public/characters';
   var apiKey = '5664cba2d0357c1f7e1a63f962247a76';
   var timeStamp = Date.now();
 
