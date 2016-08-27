@@ -345,6 +345,7 @@ $('#questionContainer').hide();
 $('#charOptions').hide();
 $('#hintsContainer').hide();
 $('#leaderBoardContainer').hide();
+var lb = $('#mainLeaderBoardContainer').hide();
 $('#restartContainer').hide();
 $('#mainLeaderBoardContainer').detach();
 $('.modal-trigger').leanModal(); //Initialize jQuery for Modal
@@ -503,8 +504,8 @@ $(document).on('click', '.character', function(){
     } else {
 
       $('#leaderBoardContainer').show();
-      var lb = $('#mainLeaderBoardContainer').show();
-
+      // var lb = $('#mainLeaderBoardContainer').show(); <--- 11th-hr-bug-fix-kp-01
+      $('#mainLeaderBoardContainer').show();
       var playerName = game.playerName;
       var score = game.hp;
       // console.log('hp', game.hp);
@@ -517,10 +518,10 @@ $(document).on('click', '.character', function(){
         scoreInverse : -score
       });
 
-      // $('#leaderboardTable > tbody').empty();
+      $('#leaderboardTable > tbody').empty();
       $('#leaderBoard').empty();
-
-      database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+      // 11th-hr-add-kp-01
+      database.ref().orderByChild('scoreInverse').limitToFirst(5).on('child_added', function(snapshot){
         
 
 
@@ -722,7 +723,7 @@ database.ref().orderByChild('scoreInverse').limitToFirst(5).on('child_added', fu
   $('#leaderBoardContainer > tbody').empty();
   // $('#leaderBoard').empty()
   $('#leaderBoardContainer').show();
-  var lb = $('#mainLeaderBoardContainer').show();
+  // $('#mainLeaderBoardContainer').show();
 
   var playerName = snapshot.val().playerName;
   var score = snapshot.val().score;
