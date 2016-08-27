@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Audio Test</title>
+</head>
+<body>
+
+
+
+	<script type="text/javascript">
+
+		// pseudo 01: play audio file
+		// var audio = new Audio(src = '../media/wrong-No-Uhuh-Uhuh-Uh.mp3');
+		// audio.play();
+		// console.log('audio title', audio)
+
+		// pseudo 02: figure out which part can be substituted with variable, array, or object because the their index could be randomized
+
+		// 1st attempt failed - numeric variable for the file location
+		// var 1 = '../media/wrong-No-Uhuh-Uhuh-Uh.mp3';
+		// var audio = new Audio(src = 1);
+		// audio.play();
+
+		// 2nd attempt failed - string variable for the whole src line
+		// var a = "src = '../media/wrong-No-Uhuh-Uhuh-Uh.mp3'";
+		// var audio = new Audio(a);
+		// audio.play();
+
+		// 3rd attempt worked - string variable for the file location only
+		// var ironman = '../media/wrong-No-Uhuh-Uhuh-Uh.mp3';
+		// var audio = new Audio(src = a);
+		// audio.play();
+
+		// pseudo 03: figure out if an object could console.log index and then substitute file location with object cobbweb
+
+		// 1st attempt failed - object with properties for file location value
+		// audioClips = {
+		// 	audio1 : '../media/ironman-Im-gonna-go-buy-you-some-time.mp3',
+		// 	audio2 : '../media/ironman-No-Uhuh-Uhuh-Uh.mp3',
+		// 	audio3 : '../media/What-you-need-is-time-to-get-your-mind-right.mp3'
+		// };
+		// 	console.log('audioClips', audioClips[0])
+		
+		// 2nd attempt failed - object with file location value
+		// audioClips = {
+		// 	'../media/ironman-Im-gonna-go-buy-you-some-time.mp3',
+		// 	'../media/ironman-No-Uhuh-Uhuh-Uh.mp3',
+		// 	'../media/What-you-need-is-time-to-get-your-mind-right.mp3'
+		// };
+		// 	console.log('audioClips', audioClips[0])
+
+		// 3rd attempt failed - object with array for file location values
+		// audioClips = {
+		// 	['../media/ironman-Im-gonna-go-buy-you-some-time.mp3',
+		// 	'../media/ironman-No-Uhuh-Uhuh-Uh.mp3',
+		// 	'../media/What-you-need-is-time-to-get-your-mind-right.mp3']
+		// };
+		// 	console.log('audioClips', audioClips[0])
+
+		// 4th attempt worked - object with property assigned with array of file locations which could be called by index number
+		audioClips = {
+			ironman: ['../media/wrong-Oh-God-Im-sorry-Thats-just-not-the-answer-we-were-looking-for.mp3',
+			'../media/wrong-No-Uhuh-Uhuh-Uh.mp3',
+			'../media/wrong-And-no-offense-but-youre-wrong-Im-wrong-about-what.mp3']
+		};
+
+			console.log('audioClips', audioClips.ironman[1])
+
+		// randomize number 0 to 2 as corresponding with index numbers
+		var randomAudio = Math.floor(Math.random() * 3);
+
+			console.log('randomNumber', randomAudio)
+
+		// thought about but never tried knowing I need to break out the parts because I don't even know if I could do each part right
+		// var randomAudio = function(){
+		// 	'../media/ironman-No-Uhuh-Uhuh-Uh.mp3';
+		// };
+
+		var audio = new Audio(src = audioClips.ironman[randomAudio]);
+
+			console.log('audio', audio)
+    	
+  		 audio.play();
+
+		// Pseudo 04: figure out if possible to do multi-characters property in the audioClip object
+
+		// hard code character which in the game logic would be already randomized based on Brian's code of characterChoen character order.
+		// var answer = "";
+		// var charactersChosen = ["thor", "captainamerica", "ironman", "spiderman", "blackwidow"];
+		// var number = Math.floor(Math.random()*charactersChosen.length);
+		// 	console.log('number', number)
+
+		// // The whole thing about this array is that since the game logic is already based on an array of game characters which are indexed, the same randomizing number could be used to call the audioClip array as long as it has the same order.
+		// characterClips = [
+		// 	thor = ['../media/thor-Its-unwise-to-be-in-my-company-right-now-Brother.mp3', '../media/thor-This-drink-I-like-it-I-know-Its-great-right-Another!.mp3'],
+		// 	captainamerica = ['../media/captainamerica-I-can-do-this-all-day.mp3',
+		// 	'../media/captainamerica-You-and-me-we-stay-here-on-the-ground.mp3'],
+		// 	ironman = ['../media/ironman-Im-just-not-the-hero-type-Clearly.mp3', '../media/This-is-wonderful.mp3'],
+		// 	spiderman = ['../media/spiderman-Im-just-Peter-Parker.mp3', '../media/spiderman-Im-SpiderMan.mp3'],
+		// 	blackwidow = ['../media/blackwidow-You-really-think-Im-pretty.mp3', '../media/blackwidow-You-really-think-Im-pretty.mp3']
+		// ];
+		// 	console.log('audioClips', characterClips[number])
+
+		// // randomize number 0 to 2 as corresponding with index numbers
+		// randomAudio = Math.floor(Math.random() * 2);
+		// 	console.log('randomNumber', randomAudio)
+
+		// // the source is conditional on characterGame index number and then randomAudio index number
+		// var audio = new Audio(src = characterClips[number][randomAudio]);
+		// 	console.log('audio', audio)
+    	
+  //   	audio.play();
+
+	</script>
+</body>
+</html>
