@@ -173,6 +173,11 @@ $('#submit').on('click', function(){
 
   setTimeout(function(){
     $('#firstHint').text(oneHint[0]).show('slow');
+    $(function () {
+    $('.marquee').marquee({
+        duration: 500
+    });
+});
   }, 6000);
   
 });
@@ -189,6 +194,12 @@ $("#name").keyup(function(event){
         $("#submit").click();
     }
 });
+
+// $(function () {
+//     $('.marquee').marquee({
+//         duration: 5000
+//     });
+// });
 
 $(document).on('click','#getHints', function(){
   $('#hintsContainer').show('slow');
