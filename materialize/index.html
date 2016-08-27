@@ -21,6 +21,7 @@
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+  <script type="text/javascript" src="assets/js/md5.js"></script>
           
 </head>
 <body>
@@ -30,13 +31,7 @@
 <div class="page-wrap">
   <img id="wolverine" class="responsive-img" src="assets/images/ironman.png">
 <div class="container" id="welcome"> 
-  <!-- <div class="row">
-    <div class="col l4 push-l4">
-    <div class="col l4 pull-l4" >
-      <a class="waves-effect waves-light btn-large">Begin</a>
-    </div>
-    <div class="col l4">
-  </div> -->
+
     <div class="row">
       <div class="col s12">
          <img class="responsive-img" src="assets/images/marvel.jpg">
@@ -65,7 +60,6 @@
 
 
   <!-- Modal Trigger -->
-  <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
 
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
@@ -86,9 +80,9 @@
       <h4 class="flow-text">Player: <span class="flow-text" id="playerName"></span></h4>
     </div>
     <div class="col s4">
-      <a class="btn waves-effect waves-teal btn-flat hide-on-small-only" id="getHints">Get Hint!</a>
+      <a class="btn waves-effect waves-light btn-flat hide-on-small-only" id="getHints">Get Hint!</a>
       
-      <a class="btn waves-effect waves-teal btn-flat hide-on-med-and-up" id="getHints">Hint!</a>
+      <a class="btn waves-effect waves-light btn-flat hide-on-med-and-up" id="getHints">Hint!</a>
 
 
     </div>
@@ -137,8 +131,6 @@
   <div class="col s2 m2 l2">
     </div>
 
-<!--   <div class="col s1 m1 l1">
-    </div> -->
 
 </div>
 
@@ -146,12 +138,6 @@
     <div class="col hide-on-small-only m2">
     </div>
     <div class="col s12 m8" id="firstHint">
-      <!-- <ul id="hints" class="collection"> -->
-<!--         <li>Hint</li>
-        <li>Hint</li>
-        <li>Hint</li>
-        <li>Hint</li> -->
-      <!-- </ul> -->
     </div>
   </div>
 
@@ -159,12 +145,7 @@
     <div class="col hide-on-small-only m2">
     </div>
     <div class="col s12 m8" id="action">
-      <!-- <ul id="hints" class="collection"> -->
-<!--         <li>Hint</li>
-        <li>Hint</li>
-        <li>Hint</li>
-        <li>Hint</li> -->
-      <!-- </ul> -->
+
     </div>
   </div>
 
@@ -172,12 +153,7 @@
     <div class="col hide-on-small-only m2">
     </div>
     <div class="col s12 m8" id="gifs">
-      <!-- <ul id="hints" class="collection"> -->
-<!--         <li>Hint</li>
-        <li>Hint</li>
-        <li>Hint</li>
-        <li>Hint</li> -->
-      <!-- </ul> -->
+
     </div>
   </div>
 
@@ -185,12 +161,7 @@
     <div class="col hide-on-small-only m2">
     </div>
     <div class="col s12 m8" id="hints">
-      <!-- <ul id="hints" class="collection"> -->
-<!--         <li>Hint</li>
-        <li>Hint</li>
-        <li>Hint</li>
-        <li>Hint</li> -->
-      <!-- </ul> -->
+
     </div>
   </div>
   <div class="row" id="charactersContainer">
@@ -233,9 +204,6 @@
             </thead>
             </div>
             <tbody>
-<!--             <tr><td>ekt</td><td>123</td></tr>
-            <tr><td>ekt</td><td>123</td></tr>
-            <tr><td>ekt</td><td>123</td></tr> -->
 
             </tbody>
           
