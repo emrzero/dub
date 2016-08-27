@@ -504,13 +504,13 @@ $(document).on('click', '.character', function(){
 
       $('#leaderBoardContainer').show();
       var lb = $('#mainLeaderBoardContainer').show();
-
+      $('#leaderBoard').empty();
       var playerName = game.playerName;
       var score = game.hp;
       // console.log('hp', game.hp);
       // console.log('name', playerName);
       // console.log(database.ref());
-
+      $('#leaderBoard').append('<li>Leader Board</li>');
       database.ref(playerName).update({
         playerName : playerName,
         score : score,
@@ -518,9 +518,9 @@ $(document).on('click', '.character', function(){
       });
 
       // $('#leaderboardTable > tbody').empty();
-      $('#leaderBoard').empty();
+      // $('#leaderBoard').empty();
 
-      database.ref().orderByChild('scoreInverse').on('child_added', function(snapshot){
+      database.ref().orderByChild('scoreInverse').limitToFirst(5).on('child_added', function(snapshot){
         
 
 
@@ -716,13 +716,14 @@ function correctAnswer() {
       console.log("unable to find character bio. Move on");
   }
 };
-
+$('#leaderBoard').empty()
+$('#leaderBoard').append('<li>Leader Board</li>');
 database.ref().orderByChild('scoreInverse').limitToFirst(5).on('child_added', function(snapshot){
   
-  $('#leaderBoardContainer > tbody').empty();
+  // $('#leaderBoardContainer > tbody').empty();
   // $('#leaderBoard').empty()
   $('#leaderBoardContainer').show();
-  var lb = $('#mainLeaderBoardContainer').show();
+  $('#mainLeaderBoardContainer').show();
 
   var playerName = snapshot.val().playerName;
   var score = snapshot.val().score;
