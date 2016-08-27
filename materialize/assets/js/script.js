@@ -504,23 +504,34 @@ $(document).on('click', '.character', function(){
     } else {
 
       $('#leaderBoardContainer').show();
+// <<<<<<< HEAD
       // var lb = $('#mainLeaderBoardContainer').show(); <--- 11th-hr-bug-fix-kp-01
-      $('#mainLeaderBoardContainer').show();
+      // $('#mainLeaderBoardContainer').show();
+// =======
+      var lb = $('#mainLeaderBoardContainer').show();
+      $('#leaderBoard').empty();
+// >>>>>>> 5b221011ae26ca74f5d404e25ae7777ef30e313f
       var playerName = game.playerName;
       var score = game.hp;
       // console.log('hp', game.hp);
       // console.log('name', playerName);
       // console.log(database.ref());
-
+      $('#leaderBoard').append('<li>Leader Board</li>');
       database.ref(playerName).update({
         playerName : playerName,
         score : score,
         scoreInverse : -score
       });
 
-      $('#leaderboardTable > tbody').empty();
-      $('#leaderBoard').empty();
+// <<<<<<< HEAD
+      // $('#leaderboardTable > tbody').empty();
+      // $('#leaderBoard').empty();
       // 11th-hr-add-kp-01
+// =======
+      // $('#leaderboardTable > tbody').empty();
+      // $('#leaderBoard').empty();
+
+// >>>>>>> 5b221011ae26ca74f5d404e25ae7777ef30e313f
       database.ref().orderByChild('scoreInverse').limitToFirst(5).on('child_added', function(snapshot){
         
 
@@ -717,13 +728,18 @@ function correctAnswer() {
       console.log("unable to find character bio. Move on");
   }
 };
-
+$('#leaderBoard').empty()
+$('#leaderBoard').append('<li>Leader Board</li>');
 database.ref().orderByChild('scoreInverse').limitToFirst(5).on('child_added', function(snapshot){
   
-  $('#leaderBoardContainer > tbody').empty();
+  // $('#leaderBoardContainer > tbody').empty();
   // $('#leaderBoard').empty()
   $('#leaderBoardContainer').show();
-  // $('#mainLeaderBoardContainer').show();
+// <<<<<<< HEAD
+//   // $('#mainLeaderBoardContainer').show();
+// =======
+//   $('#mainLeaderBoardContainer').show();
+// >>>>>>> 5b221011ae26ca74f5d404e25ae7777ef30e313f
 
   var playerName = snapshot.val().playerName;
   var score = snapshot.val().score;
